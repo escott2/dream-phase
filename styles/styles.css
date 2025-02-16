@@ -1,0 +1,85 @@
+/* START CSS RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+/* END CSS RESET */
+
+:root {
+  --black: #000;
+  --text-color: var(--black);
+  --content-padding: 20px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+header {
+  padding: var(--content-padding);
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+main {
+  padding: var(--content-padding);
+}
+
+.to-do-input {
+  border: 5px solid rebeccapurple;
+}

@@ -1,13 +1,22 @@
 const createForm = document.querySelector("#js-create-form");
 const bucketList = document.querySelector(".js-bucket-list");
 
-function loadGoals() {
-  const storedGoals = localStorage.getItem("goals");
-  if (storedGoals) {
-    return JSON.parse(storedGoals);
+function loadData(itemName) {
+  const data = localStorage.getItem(itemName);
+  if (data) {
+    return JSON.parse(data);
   }
   return [];
 }
+
+//Start Buckets Logic
+
+const buckets = loadData("buckets");
+console.log(buckets);
+
+//End Buckets Logic
+
+//Start Goal Logic
 
 function saveGoals(goals) {
   localStorage.setItem("goals", JSON.stringify(goals));
@@ -40,14 +49,16 @@ function removeItem(itemId) {
   renderList(goals);
 }
 
-let goals = loadGoals();
+let goals = loadData("goals");
 renderList(goals);
 
 createForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const textInput = createForm.elements.toDo;
   const newItem = { value: textInput.value, id: Date.now() };
-  console.log(newItem);
+  // console.log(newItem);
+  console.log(goals);
+
   goals.push(newItem);
   saveGoals(goals);
   renderItem(newItem);
@@ -60,3 +71,5 @@ bucketList.addEventListener("click", (e) => {
     removeItem(itemId);
   }
 });
+
+//End Goal Logic
