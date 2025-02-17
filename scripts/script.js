@@ -1,5 +1,8 @@
-const createForm = document.querySelector("#js-create-form");
+const addDreamForm = document.querySelector("#js-add-dream-form");
+const addBucketForm = document.querySelector("#js-add-bucket-form");
 const bucketList = document.querySelector(".js-bucket-list");
+
+const bucketsSection = document.querySelector(".js-bucket-name-input");
 
 function loadData(itemName) {
   const data = localStorage.getItem(itemName);
@@ -54,11 +57,8 @@ renderList(goals);
 
 createForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const textInput = createForm.elements.toDo;
+  const textInput = createForm.elements["to-do"];
   const newItem = { value: textInput.value, id: Date.now() };
-  // console.log(newItem);
-  console.log(goals);
-
   goals.push(newItem);
   saveGoals(goals);
   renderItem(newItem);
