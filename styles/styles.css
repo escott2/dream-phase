@@ -1,3 +1,12 @@
+/* STYLEGUIDE
+
+- Colors
+#F2C2DC
+#07D9D9
+#06BFAD
+#05A678
+#F2B9B3 */
+
 /* START CSS RESET */
 *,
 *::before,
@@ -69,10 +78,11 @@ a {
 
 header {
   padding: var(--content-padding);
+  background-color: #f2c2dc;
 }
 
-.page-title {
-  font-size: 24px;
+.title {
+  font-size: 18px;
   font-weight: 700;
 }
 
