@@ -1,11 +1,11 @@
-# Buckets
+# Dream Phase
 
-Create bucket lists for different periods of time.
+Create lists of dreams for different phases of life, big and small.
 
-This project allows you to create and manage bucket lists, categorized by different timeframes. Whether you're planning for the next month, the next year, or the next decade, Buckets helps you organize your goals and aspirations.
+This project allows you to create and manage dream lists, categorized by different timeframes. Whether you're planning for the next month, the next year, or the next decade, Dream Phase helps you organize your goals and aspirations.
 
 ## Features
 
-- **Create Multiple Bucket Lists:** Organize your goals by timeframe (e.g., "This Month," "This Winter", "This Quarter").
-- **Add Items to Lists:** Easily add new items to any of your bucket lists.
-- **Mark Items as Complete:** Track your progress by marking completed items.
+- **Create Multiple Dream Phase Lists:** Organize your goals by timeframe (e.g., "This Month," "This Winter", "This Quarter").
+- **Add Dreams to Lists:** Easily add new dreams to any of your Dream Phase lists.
+- **Mark Dreams as Complete:** Track your progress by marking completed dreams.
