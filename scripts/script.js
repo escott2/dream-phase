@@ -62,7 +62,7 @@ renderList(goals);
 
 addDreamForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const textInput = createForm.elements["to-do"];
+  const textInput = addDreamForm.elements["dream-name"];
   const newItem = { value: textInput.value, id: Date.now() };
   goals.push(newItem);
   saveGoals(goals);

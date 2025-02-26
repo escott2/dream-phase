@@ -68,10 +68,10 @@ h6 {
   --blue-lavendar-light: #c4cfe5;
   --blue-lavendar: #a9b9d9;
   --blue-dusk: #8aa1bf;
-  --blue-midnight: #323640;
+  --blue-midnight: #22314d;
   --pink-blush: #f2d8da;
   --pink-lavendar: #d9c5d2;
-  --grey-fog: #e8e9eb;
+  --grey-lavendar: #eff2f6;
 }
 
 body {
@@ -92,7 +92,8 @@ header {
 .button--secondary {
   padding: 5px;
   background-color: var(--blue-lavendar-light);
-  border: 1px solid var(--blue-midnight);
+  border: none;
+  /* border: 1px solid var(--blue-lavendar); */
   border-radius: 5px;
   line-height: 1;
 
@@ -106,7 +107,7 @@ header {
   background-color: var(--pink-blush);
 
   &:hover {
-    background-color: var(--blue-lavendar-light);
+    background-color: var(--blue-lavendar);
   }
 }
 
@@ -134,4 +135,11 @@ main {
 
 .dream-item {
   padding: 5px;
+}
+
+.dream-phase {
+  padding: 20px;
+  /* background-color: #f5f4f4; */
+  border: 1px solid var(--blue-lavendar);
+  border-radius: 10px;
 }
