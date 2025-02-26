@@ -65,6 +65,13 @@ h6 {
   --black: #000;
   --text-color: var(--black);
   --content-padding: 20px;
+  --blue-lavendar-light: #c4cfe5;
+  --blue-lavendar: #a9b9d9;
+  --blue-dusk: #8aa1bf;
+  --blue-midnight: #323640;
+  --pink-blush: #f2d8da;
+  --pink-lavendar: #d9c5d2;
+  --grey-fog: #e8e9eb;
 }
 
 body {
@@ -78,7 +85,33 @@ a {
 
 header {
   padding: var(--content-padding);
-  background-color: #f2c2dc;
+  background-color: var(--pink-blush);
+}
+
+.button--primary,
+.button--secondary {
+  padding: 5px;
+  background-color: var(--blue-lavendar-light);
+  border: 1px solid var(--blue-midnight);
+  border-radius: 5px;
+  line-height: 1;
+
+  &:hover {
+    background-color: var(--pink-blush);
+    cursor: pointer;
+  }
+}
+
+.button--secondary {
+  background-color: var(--pink-blush);
+
+  &:hover {
+    background-color: var(--blue-lavendar-light);
+  }
+}
+
+.button--delete {
+  margin: 0 5px;
 }
 
 .title {
@@ -92,4 +125,13 @@ main {
 
 .to-do-input {
   border: 5px solid rebeccapurple;
+}
+
+.dream-phase-list {
+  list-style: none;
+  padding: 0;
+}
+
+.dream-item {
+  padding: 5px;
 }

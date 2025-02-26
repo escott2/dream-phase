@@ -29,9 +29,14 @@ function renderItem(item) {
   const newItem = document.createElement("li");
   newItem.textContent = item.value;
   newItem.dataset.id = item.id;
+  newItem.classList.add("dream-item");
   const deleteButton = document.createElement("button");
-  deleteButton.textContent = "X";
-  deleteButton.classList.add("js-delete-button");
+  deleteButton.textContent = "Remove";
+  deleteButton.classList.add(
+    "js-delete-button",
+    "button--secondary",
+    "button--delete"
+  );
   newItem.appendChild(deleteButton);
   bucketList.appendChild(newItem);
 }

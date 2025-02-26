@@ -14,7 +14,8 @@
     <main>
       <h1>Dream Phase</h1>
       <section id="js-dream-phase">
-        <h2>Winter</h2>
+        <h2>Phases</h2>
+        <p>Winter (cloud graphic surrounding this)</p>
         <form id="js-add-phase-form">
           <label for="bucket-name">Add a new phase</label>
           <input
@@ -23,16 +24,17 @@
             type="text"
             class="js-phase-name-input"
           />
-          <button class="js-submit-button">Add</button>
+          <button class="js-submit-button button--primary">Add</button>
         </form>
       </section>
       <section>
+        <h2>Winter</h2>
         <form id="js-add-dream-form">
-          <label for="to-do">Add dream to phase</label>
+          <label for="to-do">Add a dream</label>
           <input id="to-do" type="text" class="js-to-do-input" name="to-do" />
-          <button class="js-submit-button">Add</button>
+          <button class="js-submit-button button--primary">Add</button>
         </form>
-        <ul class="js-dream-phase-list"></ul>
+        <ul class="js-dream-phase-list dream-phase-list"></ul>
       </section>
     </main>
   </body>
