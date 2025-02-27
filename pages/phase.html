@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dream Phase</title>
-    <script type="module" src="scripts/script.js"></script>
-    <link rel="stylesheet" href="styles/styles.css" />
+    <script type="module" src="../scripts/phase.js"></script>
+    <link rel="stylesheet" href="../styles/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -26,21 +26,7 @@
       />
     </header>
     <main>
-      <section id="js-dream-phase">
-        <h1>Dream Phases</h1>
-        <form id="js-add-phase-form">
-          <label for="bucket-name">Add a new phase</label>
-          <input
-            id="bucket-name"
-            name="bucket-name"
-            type="text"
-            class="js-phase-name-input"
-          />
-          <button class="js-submit-button button--primary">Add</button>
-        </form>
-        <p>Winter (cloud graphic surrounding this)</p>
-      </section>
-      <!-- <section class="dream-phase">
+      <section class="dream-phase">
         <h1>Winter</h1>
         <form id="js-add-dream-form">
           <label for="dream-name">Add a dream</label>
@@ -53,7 +39,7 @@
           <button class="js-submit-button button--primary">Add</button>
         </form>
         <ul class="js-dream-phase-list dream-phase-list"></ul>
-      </section> -->
+      </section>
     </main>
   </body>
 </html>
