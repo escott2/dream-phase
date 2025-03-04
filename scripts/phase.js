@@ -2,7 +2,9 @@ const addDreamForm = document.querySelector("#js-add-dream-form");
 const addBucketForm = document.querySelector("#js-add-phase-form");
 const bucketList = document.querySelector(".js-dream-phase-list");
 const bucketsSection = document.querySelector(".js-phase-name-input");
-const editButton = document.querySelector(".js-edit-button");
+
+const editModeButton = document.querySelector(".js-edit-mode-button");
+const editListButton = document.querySelector(".js-edit-list-button");
 
 function loadData(itemName) {
   const data = localStorage.getItem(itemName);
@@ -20,9 +22,11 @@ function saveGoals(goals) {
 
 function renderItem(item) {
   const newItem = document.createElement("li");
-  newItem.textContent = item.value;
   newItem.dataset.id = item.id;
   newItem.classList.add("dream-item");
+  const textSpan = document.createElement("span");
+  textSpan.classList.add("dream-name");
+  textSpan.textContent = item.value;
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Remove";
   deleteButton.classList.add(
@@ -31,6 +35,7 @@ function renderItem(item) {
     "button--delete",
     "hidden"
   );
+  newItem.appendChild(textSpan);
   newItem.appendChild(deleteButton);
   bucketList.appendChild(newItem);
 }
@@ -71,13 +76,24 @@ bucketList.addEventListener("click", (e) => {
   }
 });
 
-editButton.addEventListener("click", () => {
-  console.log("clicked");
+editModeButton.addEventListener("click", () => {
+  // console.log("clicked");
+  // const deleteButtons = document.querySelectorAll(".js-delete-button");
+  // if (deleteButtons) {
+  //   deleteButtons.forEach((button) => {
+  //     button.classList.remove("hidden");
+  //   });
+  // }
+});
+
+editListButton.addEventListener("click", (e) => {
+  e.currentTarget.classList.toggle("close");
+
   const deleteButtons = document.querySelectorAll(".js-delete-button");
 
   if (deleteButtons) {
     deleteButtons.forEach((button) => {
-      button.classList.remove("hidden");
+      button.classList.toggle("hidden");
     });
   }
 });

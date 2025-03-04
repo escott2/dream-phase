@@ -156,6 +156,10 @@ main {
   align-items: center;
 }
 
+.dream-name {
+  padding: 5px;
+}
+
 .dream-item:nth-child(odd) {
   background-color: var(--grey-lavendar);
 }
@@ -184,7 +188,7 @@ main {
 }
 
 .add-dream-form button {
-  margin: 10px 0 35px;
+  margin: 10px 0 0;
 }
 
 .actions {
@@ -199,4 +203,19 @@ main {
 
 .hidden {
   display: none;
+}
+
+.button--edit {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: block;
+  margin: 0 0 5px auto;
+  background-image: url("../assets/edit-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.button--edit.close {
+  background-image: url("../assets/close-icon.svg");
 }
