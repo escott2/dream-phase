@@ -64,6 +64,7 @@ h6 {
   --pink-blush-light: #fcf5f6;
   --pink-lavendar: #d9c5d2;
   --grey-lavendar: #eff2f6;
+  --button-font-size: 16px;
 }
 
 body {
@@ -101,11 +102,12 @@ header {
 
 .button--primary,
 .button--secondary {
-  padding: 5px;
+  line-height: 1;
+  padding: 8px;
   background-color: var(--blue-lavendar-light);
   border: none;
   border-radius: 5px;
-  line-height: 1;
+  font-size: var(--button-font-size);
 
   &:hover {
     background-color: var(--pink-blush);
@@ -126,8 +128,10 @@ header {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 42px;
   font-family: "Lobster", sans-serif;
+  line-height: 1;
+  padding-bottom: 10px;
 }
 
 main {
@@ -141,10 +145,19 @@ main {
 .dream-phase-list {
   list-style: none;
   padding: 0;
+  border: 1px solid var(--grey-lavendar);
 }
 
 .dream-item {
-  padding: 5px;
+  font-size: 20px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dream-item:nth-child(odd) {
+  background-color: var(--grey-lavendar);
 }
 
 .dream-phase {
@@ -168,8 +181,22 @@ main {
     margin: 10px 0;
     line-height: 1;
   }
+}
 
-  button {
-    margin: 10px 0;
-  }
+.add-dream-form button {
+  margin: 10px 0 35px;
+}
+
+.actions {
+  display: flex;
+  list-style-type: none;
+  justify-content: right;
+}
+
+.actions button {
+  margin: 0 5px 5px;
+}
+
+.hidden {
+  display: none;
 }

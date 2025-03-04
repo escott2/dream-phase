@@ -1,8 +1,8 @@
 const addDreamForm = document.querySelector("#js-add-dream-form");
 const addBucketForm = document.querySelector("#js-add-phase-form");
 const bucketList = document.querySelector(".js-dream-phase-list");
-
 const bucketsSection = document.querySelector(".js-phase-name-input");
+const editButton = document.querySelector(".js-edit-button");
 
 function loadData(itemName) {
   const data = localStorage.getItem(itemName);
@@ -28,7 +28,8 @@ function renderItem(item) {
   deleteButton.classList.add(
     "js-delete-button",
     "button--secondary",
-    "button--delete"
+    "button--delete",
+    "hidden"
   );
   newItem.appendChild(deleteButton);
   bucketList.appendChild(newItem);
@@ -67,6 +68,17 @@ bucketList.addEventListener("click", (e) => {
   if (e.target.classList.contains("js-delete-button")) {
     const itemId = e.target.parentNode.dataset.id;
     removeItem(itemId);
+  }
+});
+
+editButton.addEventListener("click", () => {
+  console.log("clicked");
+  const deleteButtons = document.querySelectorAll(".js-delete-button");
+
+  if (deleteButtons) {
+    deleteButtons.forEach((button) => {
+      button.classList.remove("hidden");
+    });
   }
 });
 
