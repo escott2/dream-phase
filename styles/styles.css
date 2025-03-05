@@ -58,6 +58,7 @@ h6 {
   --content-padding: 20px;
   --blue-lavendar-light: #c4cfe5;
   --blue-lavendar: #a9b9d9;
+  --blue-lavendar-dark: #9baed3;
   --blue-dusk: #8aa1bf;
   --blue-midnight: #22314d;
   --pink-blush: #f2d8da;
@@ -105,21 +106,24 @@ header {
   line-height: 1;
   padding: 8px;
   background-color: var(--blue-lavendar-light);
-  border: none;
+  border: 1px solid var(--blue-lavendar-dark);
   border-radius: 5px;
   font-size: var(--button-font-size);
 
   &:hover {
     background-color: var(--pink-blush);
+    border-color: var(--pink-lavendar);
     cursor: pointer;
   }
 }
 
 .button--secondary {
   background-color: var(--pink-blush);
+  border-color: var(--pink-lavendar);
 
   &:hover {
     background-color: var(--blue-lavendar);
+    border-color: var(--blue-lavendar-dark);
   }
 }
 
@@ -138,18 +142,25 @@ main {
   padding: var(--content-padding);
 }
 
-.to-do-input {
-  border: 5px solid rebeccapurple;
+input {
+  border: 1px solid var(--blue-lavendar-dark);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .dream-phase-list {
   list-style: none;
   padding: 0;
   border: 1px solid var(--grey-lavendar);
+  min-height: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .dream-item {
-  font-size: 20px;
+  font-size: 16px;
   padding: 8px;
   display: flex;
   justify-content: space-between;
@@ -175,17 +186,50 @@ main {
   width: auto;
 }
 
+/* START FORM STYLING */
+
 .add-dream-form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  max-width: 800px;
+}
 
-  label {
-    font-weight: 700;
-    margin: 10px 0;
-    line-height: 1;
+.add-dream-form label {
+  font-weight: 700;
+  margin: 10px 0;
+  line-height: 1;
+}
+
+.add-dream-form .button--primary {
+  margin-top: 0;
+  align-self: stretch;
+}
+
+.add-dream-form label,
+.add-dream-form input,
+.add-dream-form .button--primary {
+  margin: 5px 0;
+}
+
+@media screen and (min-width: 576px) {
+  .add-dream-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .add-dream-form label,
+  .add-dream-form input,
+  .add-dream-form .button--primary {
+    margin: 5px;
+  }
+
+  .add-dream-form input {
+    flex-grow: 1;
   }
 }
+
+/* END FORM STYLING */
 
 .add-dream-form button {
   margin: 10px 0 0;
@@ -201,7 +245,8 @@ main {
   margin: 0 5px 5px;
 }
 
-.hidden {
+.hidden,
+.button--edit.hidden {
   display: none;
 }
 
@@ -209,8 +254,6 @@ main {
   border-radius: 50%;
   height: 30px;
   width: 30px;
-  display: block;
-  margin: 0 0 5px auto;
   background-image: url("../assets/edit-icon.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -219,4 +262,23 @@ main {
 
 .button--edit.close {
   background-image: url("../assets/close-icon.svg");
+}
+
+.edit-list-actions {
+  background-color: var(--grey-lavendar);
+  position: relative;
+  top: 15px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  margin: 0 0 5px auto;
+  width: 50px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.edit-list-actions.hidden {
+  visibility: hidden;
 }

@@ -4,8 +4,10 @@ const bucketList = document.querySelector(".js-dream-phase-list");
 const bucketsSection = document.querySelector(".js-phase-name-input");
 const editModeButton = document.querySelector(".js-edit-mode-button");
 const editListButton = document.querySelector(".js-edit-list-button");
+const editListActions = document.querySelector(".js-edit-list-actions");
 
-let isEditMode = false;
+let isEditModeActive = false;
+let isEditListActive = false;
 
 function loadData(itemName) {
   const data = localStorage.getItem(itemName);
@@ -30,14 +32,14 @@ function renderItem(item) {
   textSpan.textContent = item.value;
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Remove";
-  console.log(isEditMode);
   deleteButton.classList.add(
     "js-delete-button",
     "button--secondary",
     "button--delete",
     "hidden"
   );
-  if (isEditMode) {
+  console.log(isEditListActive, "isEditListActive");
+  if (isEditListActive) {
     deleteButton.classList.remove("hidden");
   }
   newItem.appendChild(textSpan);
@@ -50,6 +52,21 @@ function renderList(goals) {
   goals.forEach((item) => {
     renderItem(item);
   });
+}
+
+function renderDeleteButtons(isEditListActive) {
+  const deleteButtons = document.querySelectorAll(".js-delete-button");
+
+  if (deleteButtons) {
+    deleteButtons.forEach((button) => {
+      // button.classList.toggle("hidden");
+      if (isEditListActive) {
+        button.classList.remove("hidden");
+      } else {
+        button.classList.add("hidden");
+      }
+    });
+  }
 }
 
 function removeItem(itemId) {
@@ -82,26 +99,31 @@ bucketList.addEventListener("click", (e) => {
 });
 
 editModeButton.addEventListener("click", () => {
-  // console.log("clicked");
-  // const deleteButtons = document.querySelectorAll(".js-delete-button");
-  // if (deleteButtons) {
-  //   deleteButtons.forEach((button) => {
-  //     button.classList.remove("hidden");
-  //   });
-  // }
+  // editListButton.classList.toggle("hidden");
+  editListActions.classList.toggle("hidden");
+
+  if (isEditModeActive) {
+    isEditModeActive = false;
+    isEditListActive = false;
+    editListButton.classList.remove("close");
+  } else {
+    isEditModeActive = true;
+  }
+
+  const ariaHiddenString = (!isEditModeActive).toString();
+  console.log("ariaHiddenString", ariaHiddenString);
+
+  editListActions.setAttribute("aria-hidden", ariaHiddenString);
+
+  renderDeleteButtons(isEditListActive);
 });
 
 editListButton.addEventListener("click", (e) => {
   e.currentTarget.classList.toggle("close");
-  isEditMode = true;
 
-  const deleteButtons = document.querySelectorAll(".js-delete-button");
+  isEditListActive = isEditListActive ? false : true;
 
-  if (deleteButtons) {
-    deleteButtons.forEach((button) => {
-      button.classList.toggle("hidden");
-    });
-  }
+  renderDeleteButtons(isEditListActive);
 });
 
 //End Goal Logic
