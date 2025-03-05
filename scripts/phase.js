@@ -99,8 +99,8 @@ bucketList.addEventListener("click", (e) => {
 });
 
 editModeButton.addEventListener("click", () => {
-  // editListButton.classList.toggle("hidden");
   editListActions.classList.toggle("hidden");
+  editListActions.classList.toggle("animate");
 
   if (isEditModeActive) {
     isEditModeActive = false;

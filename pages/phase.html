@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lobster&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -36,9 +36,13 @@
       <section class="dream-phase">
         <ul class="actions">
           <li>
-            <button class="button--secondary js-edit-mode-button">Edit</button>
+            <button
+              class="button--secondary js-edit-mode-button edit-mode-button"
+            >
+              Toggle Edit Mode
+            </button>
           </li>
-          <li><button class="button--secondary">Delete</button></li>
+          <!-- <li><button class="button--secondary">Delete</button></li> -->
         </ul>
         <h1>Winter</h1>
         <form id="js-add-dream-form" class="add-dream-form">
@@ -56,7 +60,6 @@
             class="button--secondary button--edit js-edit-list-button"
           ></button>
         </div>
-
         <ul class="js-dream-phase-list dream-phase-list"></ul>
       </section>
     </main>
