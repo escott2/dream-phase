@@ -2,9 +2,10 @@ const addDreamForm = document.querySelector("#js-add-dream-form");
 const addBucketForm = document.querySelector("#js-add-phase-form");
 const bucketList = document.querySelector(".js-dream-phase-list");
 const bucketsSection = document.querySelector(".js-phase-name-input");
-
 const editModeButton = document.querySelector(".js-edit-mode-button");
 const editListButton = document.querySelector(".js-edit-list-button");
+
+let isEditMode = false;
 
 function loadData(itemName) {
   const data = localStorage.getItem(itemName);
@@ -29,12 +30,16 @@ function renderItem(item) {
   textSpan.textContent = item.value;
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Remove";
+  console.log(isEditMode);
   deleteButton.classList.add(
     "js-delete-button",
     "button--secondary",
     "button--delete",
     "hidden"
   );
+  if (isEditMode) {
+    deleteButton.classList.remove("hidden");
+  }
   newItem.appendChild(textSpan);
   newItem.appendChild(deleteButton);
   bucketList.appendChild(newItem);
@@ -88,6 +93,7 @@ editModeButton.addEventListener("click", () => {
 
 editListButton.addEventListener("click", (e) => {
   e.currentTarget.classList.toggle("close");
+  isEditMode = true;
 
   const deleteButtons = document.querySelectorAll(".js-delete-button");
 
