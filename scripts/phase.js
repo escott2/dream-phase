@@ -1,3 +1,11 @@
+import { loadData, saveData } from "./utils.js";
+
+// const phaseData = {
+//   id: Date.now(),
+//   name: phaseName,
+//   dreams: [],
+// };
+
 const addDreamForm = document.querySelector("#js-add-dream-form");
 const addBucketForm = document.querySelector("#js-add-phase-form");
 const bucketList = document.querySelector(".js-dream-phase-list");
@@ -6,22 +14,30 @@ const editModeButton = document.querySelector(".js-edit-mode-button");
 const editListButton = document.querySelector(".js-edit-list-button");
 const editListActions = document.querySelector(".js-edit-list-actions");
 
+const params = new URLSearchParams(window.location.search);
+let phaseId = params.get("id");
+
 let isEditModeActive = false;
 let isEditListActive = false;
 
-function loadData(itemName) {
-  const data = localStorage.getItem(itemName);
-  if (data) {
-    return JSON.parse(data);
+function saveDreams(dreamPhaseData, phaseData, dreams) {
+  const updatedPhaseData = {
+    ...phaseData,
+    dreams: dreams,
+  };
+
+  const index = dreamPhaseData.findIndex(
+    (element) => element.id === parseInt(phaseId)
+  );
+
+  if (index !== -1) {
+    const newDreamPhaseData = [...dreamPhaseData];
+    newDreamPhaseData[index] = updatedPhaseData;
+    saveData(newDreamPhaseData, "dreamPhaseData");
   }
-  return [];
 }
 
 //Start Goal Logic
-
-function saveGoals(goals) {
-  localStorage.setItem("goals", JSON.stringify(goals));
-}
 
 function renderItem(item) {
   const newItem = document.createElement("li");
@@ -38,7 +54,6 @@ function renderItem(item) {
     "button--delete",
     "hidden"
   );
-  console.log(isEditListActive, "isEditListActive");
   if (isEditListActive) {
     deleteButton.classList.remove("hidden");
   }
@@ -59,7 +74,6 @@ function renderDeleteButtons(isEditListActive) {
 
   if (deleteButtons) {
     deleteButtons.forEach((button) => {
-      // button.classList.toggle("hidden");
       if (isEditListActive) {
         button.classList.remove("hidden");
       } else {
@@ -74,11 +88,17 @@ function removeItem(itemId) {
     return goal.id.toString() !== itemId;
   });
   goals = newGoals;
-  saveGoals(goals);
+  saveDreams(dreamPhaseData, phaseData, goals);
   renderList(goals);
 }
 
-let goals = loadData("goals");
+let dreamPhaseData = loadData("dreamPhaseData");
+
+let phaseData = dreamPhaseData.find(
+  (element) => element.id === parseInt(phaseId)
+);
+
+let goals = phaseData.dreams;
 renderList(goals);
 
 addDreamForm.addEventListener("submit", (e) => {
@@ -86,7 +106,9 @@ addDreamForm.addEventListener("submit", (e) => {
   const textInput = addDreamForm.elements["dream-name"];
   const newItem = { value: textInput.value, id: Date.now() };
   goals.push(newItem);
-  saveGoals(goals);
+
+  saveDreams(dreamPhaseData, phaseData, goals);
+
   renderItem(newItem);
   textInput.value = "";
 });
@@ -111,8 +133,6 @@ editModeButton.addEventListener("click", () => {
   }
 
   const ariaHiddenString = (!isEditModeActive).toString();
-  console.log("ariaHiddenString", ariaHiddenString);
-
   editListActions.setAttribute("aria-hidden", ariaHiddenString);
 
   renderDeleteButtons(isEditListActive);
