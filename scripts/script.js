@@ -2,6 +2,8 @@ const addPhaseForm = document.querySelector("#js-add-phase-form");
 const phaseNameInput = document.querySelector(".js-phase-name-input");
 const addPhaseButton = document.querySelector(".js-submit-button");
 
+const phasesList = document.querySelector(".js-phases-list");
+
 function loadData(keyName) {
   const data = localStorage.getItem(keyName);
   if (data) {
@@ -14,11 +16,23 @@ function saveData(data, keyName) {
   localStorage.setItem(keyName, JSON.stringify(data));
 }
 
+function renderPhase(phaseData) {
+  const newItem = document.createElement("li");
+  newItem.textContent = phaseData.name;
+  phasesList.appendChild(newItem);
+}
+
+function renderPhases(dreamPhaseData) {
+  dreamPhaseData.forEach((item) => {
+    renderPhase(item);
+  });
+}
+
 //Start Phases Logic
 
 const dreamPhaseData = loadData("dreamPhaseData");
 console.log(dreamPhaseData);
-// renderList(dreamPhaseData);
+renderPhases(dreamPhaseData);
 
 addPhaseButton.addEventListener("click", (e) => {
   e.preventDefault();
@@ -28,14 +42,10 @@ addPhaseButton.addEventListener("click", (e) => {
     name: phaseName,
     dreams: [],
   };
-  const updatedData = [...dreamPhaseData, phaseData];
-  saveData(updatedData, "dreamPhaseData");
-
-  // renderItem(newItem);
+  dreamPhaseData.push(phaseData);
+  saveData(dreamPhaseData, "dreamPhaseData");
+  renderPhase(phaseData);
   phaseNameInput.value = "";
-
-  console.log(phaseName);
-  console.log(updatedData);
 });
 
 //End Phases Logic
