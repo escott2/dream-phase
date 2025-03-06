@@ -73,8 +73,6 @@ h6 {
 
 body {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  /* font-family: Arial, Helvetica, sans-serif; */
-
   font-weight: 400;
 }
 
@@ -83,14 +81,44 @@ a {
   color: var(--text-color);
 }
 
-header {
+main {
   padding: var(--content-padding);
+}
+
+.main-layout-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+@media screen and (min-width: 768px) {
+  .main-layout-container {
+    padding: 20px;
+  }
+}
+
+.primary-section {
+  padding: 20px;
+  border: 1px solid var(--blue-lavendar);
+  border-radius: 10px;
+}
+@media screen and (min-width: 768px) {
+  .primary-section {
+    padding: 40px;
+  }
+}
+
+header {
   background-color: var(--pink-blush-light);
+  border-bottom: 2px solid var(--pink-lavendar);
+  padding: var(--content-padding);
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--pink-lavendar);
-  font-weight: 400;
-  font-style: normal;
+}
+
+.header-layout-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -103,7 +131,7 @@ header {
 }
 
 .hamburger-icon {
-  height: 40px;
+  height: 25px;
   width: auto;
 }
 
@@ -135,17 +163,14 @@ header {
 
 .button--delete {
   margin: 0 5px;
+  font-size: 12px;
 }
 
 h1 {
-  font-size: 42px;
+  font-size: 32px;
   font-family: var(--font-family-accent);
   line-height: 1;
   padding-bottom: 10px;
-}
-
-main {
-  padding: var(--content-padding);
 }
 
 input {
@@ -163,7 +188,7 @@ input {
   overflow: hidden;
   position: relative;
   z-index: 1;
-  background-color: var(--grey-lavendar);
+  background-color: var(--white);
 }
 
 .dream-item {
@@ -183,12 +208,6 @@ input {
   background-color: var(--grey-lavendar);
 }
 
-.dream-phase {
-  padding: 20px;
-  border: 1px solid var(--blue-lavendar);
-  border-radius: 10px;
-}
-
 .cloud-img {
   height: 50px;
   width: auto;
@@ -196,52 +215,47 @@ input {
 
 /* START FORM STYLING */
 
-.add-dream-form {
+.form {
   display: flex;
   flex-direction: column;
   max-width: 800px;
 }
 
-.add-dream-form label {
+.form label {
   margin: 10px 0;
   line-height: 1;
-  /* font-family: var(--font-family-accent); */
 }
 
-.add-dream-form .button--primary {
+.form .button--primary {
   margin-top: 0;
   align-self: stretch;
 }
 
-.add-dream-form label,
-.add-dream-form input,
-.add-dream-form .button--primary {
+.form label,
+.form input,
+.form .button--primary {
   margin: 5px 0;
 }
 
 @media screen and (min-width: 576px) {
-  .add-dream-form {
+  .form {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
   }
 
-  .add-dream-form label,
-  .add-dream-form input,
-  .add-dream-form .button--primary {
+  .form label,
+  .form input,
+  .form .button--primary {
     margin: 5px;
   }
 
-  .add-dream-form input {
+  .form input {
     flex-grow: 1;
   }
 }
 
 /* END FORM STYLING */
-
-.add-dream-form button {
-  margin: 10px 0 0;
-}
 
 .actions {
   display: flex;
@@ -257,6 +271,12 @@ input {
   font-size: 12px;
   position: relative;
   top: -34px;
+}
+
+@media screen and (min-width: 768px) {
+  .edit-mode-button {
+    top: -54px;
+  }
 }
 
 .hidden,
