@@ -1,4 +1,5 @@
 import { loadData, saveData } from "./utils.js";
+import { createCloudSVG } from "./cloudSVG.js";
 
 const addDreamForm = document.querySelector("#js-add-dream-form");
 const dreamPhaseList = document.querySelector(".js-dream-phase-list");
@@ -6,6 +7,8 @@ const editModeButton = document.querySelector(".js-edit-mode-button");
 const editListButton = document.querySelector(".js-edit-list-button");
 const editListActions = document.querySelector(".js-edit-list-actions");
 const phaseNameHeading = document.querySelector(".js-phase-name");
+const breadcrumbs = document.querySelector(".js-breadcrumbs");
+const pageTitleContainer = document.querySelector(".js-page-title-container");
 
 const params = new URLSearchParams(window.location.search);
 let phaseId = params.get("id");
@@ -34,8 +37,18 @@ function saveDreams(dreamPhaseData, phaseData, dreams) {
   }
 }
 
-function renderPhaseName(phaseName) {
+function renderPhaseNameHeading(phaseName) {
   phaseNameHeading.textContent = phaseName;
+}
+
+function renderPhaseNameBreadcrumbs(phaseName) {
+  const newText = document.createTextNode(phaseName);
+  breadcrumbs.appendChild(newText);
+}
+
+function renderCloudSVG(color) {
+  const cloudSVG = createCloudSVG();
+  pageTitleContainer.appendChild(cloudSVG);
 }
 
 function renderItem(item) {
@@ -89,7 +102,6 @@ function removeItem(itemId) {
   dreams = newDreams;
   saveDreams(dreamPhaseData, phaseData, dreams);
   renderList(dreams);
-  renderPhaseName(phaseData.name);
 }
 
 if (phaseId) {
@@ -101,7 +113,9 @@ if (phaseId) {
   if (phaseData) {
     dreams = phaseData.dreams;
     renderList(dreams);
-    renderPhaseName(phaseData.name);
+    renderCloudSVG("#7891c3");
+    renderPhaseNameHeading(phaseData.name);
+    renderPhaseNameBreadcrumbs(phaseData.name);
   } else {
     console.log("error loading phase data");
   }

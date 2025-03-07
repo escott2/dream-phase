@@ -33,6 +33,14 @@
       <div class="main-layout-container">
         <section class="primary-section">
           <ul class="actions">
+            <li class="js-breadcrumbs breadcrumbs">
+              <a href="../index.html">Dream Phases</a>
+              <img
+                src="../assets/icons/caret.svg"
+                alt="arrow pointing right"
+                class="breadcrumbs__caret"
+              />
+            </li>
             <li>
               <button
                 class="button--secondary js-edit-mode-button edit-mode-button"
@@ -42,7 +50,9 @@
             </li>
             <!-- <li><button class="button--secondary">Delete</button></li> -->
           </ul>
-          <h1 class="js-phase-name phase-name"></h1>
+          <div class="js-page-title-container page-title-container">
+            <h1 class="js-phase-name phase-name"></h1>
+          </div>
           <form id="js-add-dream-form" class="form">
             <label for="dream-name">Dream Name</label>
             <input

@@ -103,7 +103,7 @@ main {
 }
 @media screen and (min-width: 768px) {
   .primary-section {
-    padding: 40px;
+    padding: 20px 40px 40px;
   }
 }
 
@@ -170,7 +170,6 @@ h1 {
   font-size: 32px;
   font-family: var(--font-family-accent);
   line-height: 1;
-  padding-bottom: 10px;
 }
 
 input {
@@ -260,23 +259,22 @@ input {
 .actions {
   display: flex;
   list-style-type: none;
-  justify-content: right;
+  justify-content: space-between;
+  padding: 0 0 25px;
 }
 
 .actions button {
   margin: 0 5px 5px;
 }
 
+.actions__edit {
+  margin-left: auto;
+}
+
 .edit-mode-button {
   font-size: 12px;
   position: relative;
   top: -34px;
-}
-
-@media screen and (min-width: 768px) {
-  .edit-mode-button {
-    top: -54px;
-  }
 }
 
 .hidden,
@@ -350,7 +348,20 @@ input {
 
 .phases-list {
   list-style-type: none;
-  cursor: pointer;
+  padding: 20px 0 0;
+}
+
+.phases-list li {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-family-accent);
+  padding: 10px;
+}
+
+.phases-list a {
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-link {
@@ -360,4 +371,41 @@ input {
 
 .nav-link:hover {
   text-decoration: underline;
+}
+
+.cloud-svg {
+  width: 50px;
+  height: auto;
+  margin: 0 10px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.breadcrumbs a {
+  color: #364f7c;
+}
+
+.breadcrumbs__caret {
+  width: 10px;
+  height: auto;
+  margin: 5px;
+  transform: rotate(90deg);
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.page-title-container {
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.page-title-container .cloud-svg {
+  width: 60px;
 }
