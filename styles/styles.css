@@ -137,6 +137,7 @@ header {
 
 .button--primary,
 .button--secondary {
+  color: var(--text-color);
   line-height: 1;
   padding: 8px;
   background-color: var(--blue-lavendar-light);
@@ -181,7 +182,7 @@ input {
 .dream-phase-list {
   list-style: none;
   padding: 0;
-  border: 2px solid var(--grey-lavendar);
+  border: 1px solid var(--grey-lavendar);
   min-height: 400px;
   border-radius: 10px;
   overflow: hidden;
@@ -309,10 +310,12 @@ input {
   align-items: center;
   justify-content: center;
   padding-bottom: 10px;
+  transform: translateY(50px);
 }
 
 .edit-list-actions.animate {
-  animation: 0.5s slide-up;
+  transition: 0.5s linear all;
+  transform: translateY(0);
 }
 
 .edit-list-actions.animate .button--edit {
@@ -322,15 +325,6 @@ input {
 .edit-list-actions:not(.animate) {
   transform: translateY(50px);
   transition: 0.5s linear all;
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(50px);
-  }
-  to {
-    transform: translateY(0);
-  }
 }
 
 @keyframes emphasize {
