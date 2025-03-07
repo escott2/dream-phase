@@ -10,4 +10,11 @@ function saveData(data, keyName) {
   localStorage.setItem(keyName, JSON.stringify(data));
 }
 
-export { loadData, saveData };
+function getBaseUrl(repositoryName = "dream-phase") {
+  if (window.location.pathname.includes(`/${repositoryName}/`)) {
+    return `/${repositoryName}/`;
+  }
+  return "/";
+}
+
+export { loadData, saveData, getBaseUrl };
