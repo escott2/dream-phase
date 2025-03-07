@@ -30,8 +30,6 @@ function renderPhases(dreamPhaseData) {
   });
 }
 
-//Start Phases Logic
-
 const dreamPhaseData = loadData("dreamPhaseData");
 renderPhases(dreamPhaseData);
 
@@ -49,5 +47,3 @@ addPhaseForm.addEventListener("submit", (e) => {
   renderPhase(phaseData);
   phaseNameInput.value = "";
 });
-
-//End Phases Logic
