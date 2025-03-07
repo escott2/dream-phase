@@ -179,7 +179,7 @@ input {
   padding: 5px;
 }
 
-.dream-phase-list {
+.data-list {
   list-style: none;
   padding: 0;
   border: 1px solid var(--grey-lavendar);
@@ -340,22 +340,20 @@ input {
   visibility: hidden;
 }
 
-.phases-list {
-  list-style-type: none;
-  padding: 20px 0 0;
-}
-
 .phases-list li {
   font-size: 20px;
-  font-weight: 700;
-  font-family: var(--font-family-accent);
   padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .phases-list a {
   padding: 5px;
   display: inline-flex;
   align-items: center;
+  font-family: var(--font-family-accent);
+  font-weight: 700;
 }
 
 .nav-link {

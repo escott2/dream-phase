@@ -1,4 +1,4 @@
-import { loadData, saveData } from "./utils.js";
+import { loadData, saveData, createDeleteButton } from "./utils.js";
 import { createCloudSVG } from "./cloudSVG.js";
 
 const addDreamForm = document.querySelector("#js-add-dream-form");
@@ -58,17 +58,7 @@ function renderItem(item) {
   const textSpan = document.createElement("span");
   textSpan.classList.add("dream-name");
   textSpan.textContent = item.value;
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Remove";
-  deleteButton.classList.add(
-    "js-delete-button",
-    "button--secondary",
-    "button--delete",
-    "hidden"
-  );
-  if (isEditListActive) {
-    deleteButton.classList.remove("hidden");
-  }
+  const deleteButton = createDeleteButton(isEditListActive);
   newItem.appendChild(textSpan);
   newItem.appendChild(deleteButton);
   dreamPhaseList.appendChild(newItem);
@@ -139,6 +129,7 @@ if (phaseId) {
     }
   });
 
+  // TODO - Refactor to use reusable utility functions for callback functions. Repeated code.
   editModeButton.addEventListener("click", () => {
     editListActions.classList.toggle("hidden");
     editListActions.classList.toggle("animate");

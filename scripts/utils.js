@@ -17,4 +17,19 @@ function getBaseUrl(repositoryName = "dream-phase") {
   return "/";
 }
 
-export { loadData, saveData, getBaseUrl };
+function createDeleteButton(isEditListActive) {
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Remove";
+  deleteButton.classList.add(
+    "js-delete-button",
+    "button--secondary",
+    "button--delete",
+    "hidden"
+  );
+  if (isEditListActive) {
+    deleteButton.classList.remove("hidden");
+  }
+  return deleteButton;
+}
+
+export { createDeleteButton, getBaseUrl, loadData, saveData };
