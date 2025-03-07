@@ -16,22 +16,17 @@
   <body>
     <header>
       <div class="header-layout-container">
-        <div>
+        <a href="../index.html">
           <img
             src="../assets/blue-pink-cloud.svg"
             alt="cloud"
             class="cloud-img"
           />
-          <a href="#" class="title">Dream Phase</a>
-        </div>
-        <div>
-          <a href="../index.html">Home</a>
-        </div>
-        <img
-          src="../assets/hamburger-icon.svg"
-          alt="hamburger-icon"
-          class="hamburger-icon"
-        />
+          <span class="title">Dream Phase</span>
+        </a>
+        <nav>
+          <a href="../index.html" class="nav-link">Home</a>
+        </nav>
       </div>
     </header>
     <main>
@@ -47,7 +42,7 @@
             </li>
             <!-- <li><button class="button--secondary">Delete</button></li> -->
           </ul>
-          <h1>Winter</h1>
+          <h1 class="js-phase-name phase-name"></h1>
           <form id="js-add-dream-form" class="form">
             <label for="dream-name">Dream Name</label>
             <input

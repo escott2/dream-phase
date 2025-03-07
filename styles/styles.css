@@ -347,3 +347,17 @@ input {
 .edit-list-actions.hidden {
   visibility: hidden;
 }
+
+.phases-list {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.nav-link {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}

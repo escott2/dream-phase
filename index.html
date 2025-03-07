@@ -16,18 +16,13 @@
   <body>
     <header>
       <div class="header-layout-container">
-        <div>
+        <a href="../index.html">
           <img src="assets/blue-pink-cloud.svg" alt="cloud" class="cloud-img" />
-          <a href="#" class="title">Dream Phase</a>
-        </div>
-        <div>
-          <a href="/pages/phase.html?id=1741275532837">Phase</a>
-        </div>
-        <img
-          src="assets/hamburger-icon.svg"
-          alt="hamburger-icon"
-          class="hamburger-icon"
-        />
+          <span class="title">Dream Phase</span></a
+        >
+        <nav>
+          <a href="#" class="nav-link">Home</a>
+        </nav>
       </div>
     </header>
     <main>
@@ -44,7 +39,7 @@
           </ul>
           <h1>Dream Phases</h1>
           <form id="js-add-phase-form" class="form">
-            <label for="bucket-name">Add a new phase</label>
+            <label for="bucket-name">Phase Name</label>
             <input
               id="bucket-name"
               name="bucket-name"
@@ -53,8 +48,7 @@
             />
             <button class="js-submit-button button--primary">Add</button>
           </form>
-          <p>Winter (cloud graphic surrounding this)</p>
-          <ul class="js-phases-list"></ul>
+          <ul class="js-phases-list phases-list"></ul>
         </section>
       </div>
     </main>
