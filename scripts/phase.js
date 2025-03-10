@@ -55,12 +55,15 @@ function renderItem(item) {
   const newItem = document.createElement("li");
   newItem.dataset.id = item.id;
   newItem.classList.add("dream-item");
-  const textSpan = document.createElement("span");
-  textSpan.classList.add("dream-name");
-  textSpan.textContent = item.value;
+  const checkboxInput = document.createElement("input");
+  checkboxInput.setAttribute("type", "checkbox");
+  checkboxInput.setAttribute("id", `${item.id}`);
+  const checkboxLabel = document.createElement("label");
+  checkboxLabel.classList.add("dream-name");
+  checkboxLabel.textContent = item.value;
+  checkboxLabel.setAttribute("for", `${item.id}`);
   const deleteButton = createDeleteButton(isEditListActive);
-  newItem.appendChild(textSpan);
-  newItem.appendChild(deleteButton);
+  newItem.append(checkboxInput, checkboxLabel, deleteButton);
   dreamPhaseList.appendChild(newItem);
 }
 
