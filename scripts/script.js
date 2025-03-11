@@ -26,20 +26,23 @@ function renderDeleteButtons(isEditListActive, deleteButtons) {
 }
 
 // TODO -- Add Archive button and screen to manage
-// function archiveItem(itemId) {
+// function archiveItem(itemId, dreamPhaseData, phasesList, isEditListActive) {
 //   const archivedPhase = dreamPhaseData.filter((phase) => {
 //     return phase.id.toString() === itemId;
 //   });
 //   saveData(archivedPhase, "dreamPhaseArchivedData");
-//   removeItem(itemId);
+//   removeItem(itemId, dreamPhaseData, phasesList, isEditListActive)
 // }
 
-function removeItem(itemId, dreamPhaseData) {
+function removeItem(itemId, dreamPhaseData, phasesList, isEditListActive) {
   const newDreamPhaseData = dreamPhaseData.filter((phase) => {
     return phase.id.toString() !== itemId;
   });
   saveData(newDreamPhaseData, "dreamPhaseData");
-  renderPhases(newDreamPhaseData);
+  //TODO - load data to keep it synced
+  dreamPhaseData.length = 0;
+  newDreamPhaseData.forEach((item) => dreamPhaseData.push(item));
+  renderPhases(newDreamPhaseData, phasesList, isEditListActive);
 }
 
 function renderPhase(phaseData, phasesList, isEditListActive) {
@@ -98,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     phasesList.addEventListener("click", (e) => {
       if (e.target.classList.contains("js-delete-button")) {
         const itemId = e.target.parentNode.dataset.id;
-        removeItem(itemId, dreamPhaseData);
+        removeItem(itemId, dreamPhaseData, phasesList, isEditListActive);
       }
     });
 
