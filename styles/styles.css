@@ -55,20 +55,21 @@ h6 {
 :root {
   --black: #000;
   --white: #fff;
-  --text-color: var(--black);
-  --content-padding: 20px;
   --blue-lavendar-light: #c4cfe5;
   --blue-lavendar: #a9b9d9;
   --blue-lavendar-dark: #9baed3;
-  --blue-dusk: #8aa1bf;
+  --blue-dark: #364f7c;
   --blue-midnight: #22314d;
   --pink-blush: #f2d8da;
   --pink-blush-light: #fcf5f6;
   --pink-lavendar: #d9c5d2;
   --grey-lavendar: #eff2f6;
+
+  --text-color: var(--black);
   --button-font-size: 16px;
   --font-family-accent: "Lobster", sans-serif;
   --font-family-accent: "Alata", sans-serif;
+  --content-padding: 20px;
 }
 
 body {
@@ -385,7 +386,7 @@ input {
 }
 
 .breadcrumbs a {
-  color: #364f7c;
+  color: var(--blue-dark);
 }
 
 .breadcrumbs__caret {
@@ -408,3 +409,29 @@ input {
 .page-title-container .cloud-svg {
   width: 60px;
 }
+
+/* START CHECKBOX STYLING */
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 1px solid gray;
+  vertical-align: -2px;
+  color: var(--blue-dark);
+  margin-left: 5px;
+}
+
+input[type="checkbox"]::before {
+  content: "✔";
+  position: absolute;
+  font-size: 20px;
+  right: -4px;
+  top: -10px;
+  visibility: hidden;
+}
+
+input[type="checkbox"]:checked::before {
+  visibility: visible;
+}
+/* END CHECKBOX STYLING */

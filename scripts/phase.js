@@ -58,6 +58,8 @@ function renderItem(item) {
   const checkboxInput = document.createElement("input");
   checkboxInput.setAttribute("type", "checkbox");
   checkboxInput.setAttribute("id", `${item.id}`);
+  checkboxInput.checked = item.isChecked;
+  checkboxInput.classList.add("js-dream-checkbox");
   const checkboxLabel = document.createElement("label");
   checkboxLabel.classList.add("dream-name");
   checkboxLabel.textContent = item.value;
@@ -116,7 +118,11 @@ if (phaseId) {
   addDreamForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const textInput = addDreamForm.elements["dream-name"];
-    const newItem = { value: textInput.value, id: Date.now() };
+    const newItem = {
+      value: textInput.value,
+      id: Date.now(),
+      isChecked: false,
+    };
     dreams.push(newItem);
 
     saveDreams(dreamPhaseData, phaseData, dreams);
@@ -129,6 +135,19 @@ if (phaseId) {
     if (e.target.classList.contains("js-delete-button")) {
       const itemId = e.target.parentNode.dataset.id;
       removeItem(itemId);
+    }
+
+    if (e.target.classList.contains("js-dream-checkbox")) {
+      const dreamCheckbox = e.target;
+      const itemId = dreamCheckbox.parentNode.dataset.id;
+      const targetDreamIndex = dreams.findIndex(
+        (dream) => dream.id.toString() === itemId
+      );
+      const updatedDream = { ...dreams[targetDreamIndex] };
+      updatedDream.isChecked = dreamCheckbox.checked;
+      dreams[targetDreamIndex] = updatedDream;
+
+      saveDreams(dreamPhaseData, phaseData, dreams);
     }
   });
 
