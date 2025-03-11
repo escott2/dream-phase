@@ -268,6 +268,7 @@ input {
 
 input[type="text"] {
   background-color: var(--input-text-background-color);
+  color: var(--text-color);
 }
 
 .data-list {
