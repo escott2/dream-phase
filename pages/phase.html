@@ -15,64 +15,66 @@
     />
   </head>
   <body>
-    <header>
-      <div class="header-layout-container">
-        <a href="../index.html">
-          <img
-            src="../assets/blue-pink-cloud.svg"
-            alt="cloud"
-            class="cloud-img"
-          />
-          <span class="title">Dream Phase</span>
-        </a>
-        <nav>
-          <a href="../index.html" class="nav-link">Home</a>
-        </nav>
-      </div>
-    </header>
-    <main>
-      <div class="main-layout-container">
-        <section class="primary-section">
-          <ul class="actions">
-            <li class="js-breadcrumbs breadcrumbs">
-              <a href="../index.html">Dream Phases</a>
-              <img
-                src="../assets/icons/caret.svg"
-                alt="arrow pointing right"
-                class="breadcrumbs__caret"
-              />
-            </li>
-            <li>
-              <button
-                class="button--secondary js-edit-mode-button edit-mode-button"
-              >
-                Toggle Edit Mode
-              </button>
-            </li>
-            <!-- <li><button class="button--secondary">Delete</button></li> -->
-          </ul>
-          <div class="js-page-title-container page-title-container">
-            <h1 class="js-phase-name phase-name"></h1>
-          </div>
-          <form id="js-add-dream-form" class="form">
-            <label for="dream-name">Dream Name</label>
-            <input
-              id="dream-name"
-              type="text"
-              class="js-to-do-input"
-              name="dream-name"
-              required
+    <div class="js-application-container application-container">
+      <header>
+        <div class="header-layout-container">
+          <a href="../index.html">
+            <img
+              src="../assets/blue-pink-cloud.svg"
+              alt="cloud"
+              class="cloud-img"
             />
-            <button class="js-submit-button button--primary">Add</button>
-          </form>
-          <div class="edit-list-actions js-edit-list-actions hidden">
-            <button
-              class="button--secondary button--edit js-edit-list-button"
-            ></button>
-          </div>
-          <ul class="js-dream-phase-list dream-phase-list data-list"></ul>
-        </section>
-      </div>
-    </main>
+            <span class="title">Dream Phase</span>
+          </a>
+          <nav>
+            <a href="../index.html" class="nav-link">Home</a>
+          </nav>
+        </div>
+      </header>
+      <main>
+        <div class="main-layout-container">
+          <section class="primary-section">
+            <ul class="actions">
+              <li class="js-breadcrumbs breadcrumbs">
+                <a href="../index.html">Dream Phases</a>
+                <img
+                  src="../assets/icons/caret.svg"
+                  alt="arrow pointing right"
+                  class="breadcrumbs__caret"
+                />
+              </li>
+              <li>
+                <button
+                  class="button--secondary js-edit-mode-button edit-mode-button"
+                >
+                  Toggle Edit Mode
+                </button>
+              </li>
+              <!-- <li><button class="button--secondary">Delete</button></li> -->
+            </ul>
+            <div class="js-page-title-container page-title-container">
+              <h1 class="js-phase-name phase-name"></h1>
+            </div>
+            <form id="js-add-dream-form" class="form">
+              <label for="dream-name">Dream Name</label>
+              <input
+                id="dream-name"
+                type="text"
+                class="js-to-do-input"
+                name="dream-name"
+                required
+              />
+              <button class="js-submit-button button--primary">Add</button>
+            </form>
+            <div class="edit-list-actions js-edit-list-actions hidden">
+              <button
+                class="button--secondary button--edit js-edit-list-button"
+              ></button>
+            </div>
+            <ul class="js-dream-phase-list dream-phase-list data-list"></ul>
+          </section>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

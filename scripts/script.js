@@ -1,15 +1,11 @@
-import { loadData, saveData, getBaseUrl, createDeleteButton } from "./utils.js";
+import {
+  loadData,
+  saveData,
+  getBaseUrl,
+  createDeleteButton,
+  setAppTheme,
+} from "./utils.js";
 import { createCloudSVG } from "./cloudSVG.js";
-
-const addPhaseForm = document.querySelector("#js-add-phase-form");
-const phaseNameInput = document.querySelector(".js-phase-name-input");
-const phasesList = document.querySelector(".js-phases-list");
-const editListButton = document.querySelector(".js-edit-list-button");
-const editListActions = document.querySelector(".js-edit-list-actions");
-const editModeButton = document.querySelector(".js-edit-mode-button");
-
-let isEditModeActive = false;
-let isEditListActive = false;
 
 function buildPhaseUrl(phaseId) {
   const baseUrl = getBaseUrl();
@@ -17,9 +13,7 @@ function buildPhaseUrl(phaseId) {
   return url;
 }
 
-function renderDeleteButtons(isEditListActive) {
-  const deleteButtons = document.querySelectorAll(".js-delete-button");
-
+function renderDeleteButtons(isEditListActive, deleteButtons) {
   if (deleteButtons) {
     deleteButtons.forEach((button) => {
       if (isEditListActive) {
@@ -40,7 +34,7 @@ function renderDeleteButtons(isEditListActive) {
 //   removeItem(itemId);
 // }
 
-function removeItem(itemId) {
+function removeItem(itemId, dreamPhaseData) {
   const newDreamPhaseData = dreamPhaseData.filter((phase) => {
     return phase.id.toString() !== itemId;
   });
@@ -48,7 +42,7 @@ function removeItem(itemId) {
   renderPhases(newDreamPhaseData);
 }
 
-function renderPhase(phaseData) {
+function renderPhase(phaseData, phasesList, isEditListActive) {
   const newItem = document.createElement("li");
   const id = phaseData.id;
   newItem.dataset.id = id;
@@ -64,61 +58,81 @@ function renderPhase(phaseData) {
   phasesList.appendChild(newItem);
 }
 
-function renderPhases(dreamPhaseData) {
+function renderPhases(dreamPhaseData, phasesList, isEditListActive) {
   phasesList.replaceChildren();
   dreamPhaseData.forEach((item) => {
-    renderPhase(item);
+    renderPhase(item, phasesList, isEditListActive);
   });
 }
 
-const dreamPhaseData = loadData("dreamPhaseData");
-renderPhases(dreamPhaseData);
+document.addEventListener("DOMContentLoaded", () => {
+  const addPhaseForm = document.querySelector("#js-add-phase-form");
+  const phaseNameInput = document.querySelector(".js-phase-name-input");
+  const phasesList = document.querySelector(".js-phases-list");
+  const editListButton = document.querySelector(".js-edit-list-button");
+  const editListActions = document.querySelector(".js-edit-list-actions");
+  const editModeButton = document.querySelector(".js-edit-mode-button");
 
-addPhaseForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const phaseName = phaseNameInput.value;
-  const phaseId = Date.now();
-  const phaseData = {
-    id: phaseId,
-    name: phaseName,
-    dreams: [],
-  };
-  dreamPhaseData.push(phaseData);
-  saveData(dreamPhaseData, "dreamPhaseData");
-  renderPhase(phaseData);
-  phaseNameInput.value = "";
-});
+  let isEditModeActive = false;
+  let isEditListActive = false;
 
-phasesList.addEventListener("click", (e) => {
-  if (e.target.classList.contains("js-delete-button")) {
-    const itemId = e.target.parentNode.dataset.id;
-    removeItem(itemId);
-  }
-});
+  const dreamPhaseData = loadData("dreamPhaseData");
+  if (dreamPhaseData) {
+    renderPhases(dreamPhaseData, phasesList, isEditListActive);
 
-// TODO - Refactor to use reusable utility functions for callback functions. Repeated code.
-editModeButton.addEventListener("click", () => {
-  editListActions.classList.toggle("hidden");
-  editListActions.classList.toggle("animate");
+    addPhaseForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const phaseName = phaseNameInput.value;
+      const phaseId = Date.now();
+      const phaseData = {
+        id: phaseId,
+        name: phaseName,
+        dreams: [],
+      };
+      dreamPhaseData.push(phaseData);
+      saveData(dreamPhaseData, "dreamPhaseData");
+      renderPhase(phaseData, phasesList, isEditListActive);
+      phaseNameInput.value = "";
+    });
 
-  if (isEditModeActive) {
-    isEditModeActive = false;
-    isEditListActive = false;
-    editListButton.classList.remove("close");
+    phasesList.addEventListener("click", (e) => {
+      if (e.target.classList.contains("js-delete-button")) {
+        const itemId = e.target.parentNode.dataset.id;
+        removeItem(itemId, dreamPhaseData);
+      }
+    });
+
+    // TODO - Refactor to use reusable utility functions for callback functions. Repeated code.
+    editModeButton.addEventListener("click", () => {
+      editListActions.classList.toggle("hidden");
+      editListActions.classList.toggle("animate");
+
+      if (isEditModeActive) {
+        isEditModeActive = false;
+        isEditListActive = false;
+        editListButton.classList.remove("close");
+      } else {
+        isEditModeActive = true;
+      }
+
+      const ariaHiddenString = (!isEditModeActive).toString();
+      editListActions.setAttribute("aria-hidden", ariaHiddenString);
+
+      const deleteButtons = document.querySelectorAll(".js-delete-button");
+      renderDeleteButtons(isEditListActive, deleteButtons);
+    });
+
+    editListButton.addEventListener("click", (e) => {
+      e.currentTarget.classList.toggle("close");
+
+      isEditListActive = isEditListActive ? false : true;
+
+      const deleteButtons = document.querySelectorAll(".js-delete-button");
+      renderDeleteButtons(isEditListActive, deleteButtons);
+    });
   } else {
-    isEditModeActive = true;
+    console.log("error: No data found");
   }
 
-  const ariaHiddenString = (!isEditModeActive).toString();
-  editListActions.setAttribute("aria-hidden", ariaHiddenString);
-
-  renderDeleteButtons(isEditListActive);
-});
-
-editListButton.addEventListener("click", (e) => {
-  e.currentTarget.classList.toggle("close");
-
-  isEditListActive = isEditListActive ? false : true;
-
-  renderDeleteButtons(isEditListActive);
+  setAppTheme();
 });

@@ -15,51 +15,88 @@
     />
   </head>
   <body>
-    <header>
-      <div class="header-layout-container">
-        <a href="#">
-          <img src="assets/blue-pink-cloud.svg" alt="cloud" class="cloud-img" />
-          <span class="title">Dream Phase</span></a
-        >
-        <nav>
-          <a href="#" class="nav-link">Home</a>
-        </nav>
-      </div>
-    </header>
-    <main>
-      <div class="main-layout-container">
-        <section id="js-dream-phase" class="primary-section">
-          <ul class="actions">
-            <li class="actions__edit">
-              <button
-                class="button--secondary js-edit-mode-button edit-mode-button"
-              >
-                Toggle Edit Mode
-              </button>
+    <div class="js-application-container application-container">
+      <header>
+        <div class="header-layout-container">
+          <a href="#">
+            <img
+              src="assets/blue-pink-cloud.svg"
+              alt="cloud"
+              class="cloud-img"
+            />
+            <span class="title">Dream Phase</span></a
+          >
+          <ul class="header-actions">
+            <li>
+              <nav>
+                <a href="#" class="nav-link">Home</a>
+              </nav>
+            </li>
+            <li>
+              <button class="js-theme-button button--primary">Theme</button>
+              <form class="theme-options js-theme-options">
+                <fieldset class="theme-options-fieldset">
+                  <legend>Select preferred theme:</legend>
+                  <div>
+                    <input
+                      type="radio"
+                      id="lightMode"
+                      name="theme"
+                      value="lightMode"
+                      checked
+                    />
+                    <label for="lightMode">Light Mode</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      id="darkMode"
+                      name="theme"
+                      value="darkMode"
+                    />
+                    <label for="darkMode">Dark Mode</label>
+                  </div>
+                </fieldset>
+              </form>
             </li>
           </ul>
-          <div class="js-page-title-container page-title-container">
-            <h1>Dream Phases</h1>
-          </div>
-          <form id="js-add-phase-form" class="form">
-            <label for="phase-name">Phase Name</label>
-            <input
-              id="phase-name"
-              name="phase-name"
-              type="text"
-              class="js-phase-name-input"
-              required
-            />
-            <button class="js-submit-button button--primary">Add</button>
-          </form>
-          <div class="edit-list-actions js-edit-list-actions hidden">
-            <button
-              class="button--secondary button--edit js-edit-list-button"
-            ></button>
-          </div>
-          <ul class="js-phases-list phases-list data-list"></ul>
-        </section>
-      </div>
-    </main>
+        </div>
+      </header>
+      <main>
+        <div class="main-layout-container">
+          <section id="js-dream-phase" class="primary-section">
+            <ul class="actions">
+              <li class="actions__edit">
+                <button
+                  class="button--secondary js-edit-mode-button edit-mode-button"
+                >
+                  Toggle Edit Mode
+                </button>
+              </li>
+            </ul>
+            <div class="js-page-title-container page-title-container">
+              <h1>Dream Phases</h1>
+            </div>
+            <form id="js-add-phase-form" class="form">
+              <label for="phase-name">Phase Name</label>
+              <input
+                id="phase-name"
+                name="phase-name"
+                type="text"
+                class="js-phase-name-input"
+                required
+              />
+              <button class="js-submit-button button--primary">Add</button>
+            </form>
+            <div class="edit-list-actions js-edit-list-actions hidden">
+              <button
+                class="button--secondary button--edit js-edit-list-button"
+              ></button>
+            </div>
+            <ul class="js-phases-list phases-list data-list"></ul>
+          </section>
+        </div>
+      </main>
+    </div>
   </body>
 </html>
