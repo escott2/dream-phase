@@ -36,6 +36,9 @@ function setAppTheme() {
   const themeButton = document.querySelector(".js-theme-button");
   const themeOptions = document.querySelector(".js-theme-options");
   const appContainer = document.querySelector(".js-application-container");
+  const closeThemeOptionsButton = document.querySelector(
+    ".js-theme-options-close-button"
+  );
 
   if (!themeButton || !themeOptions || !appContainer) {
     console.error("Theme elements not found in the DOM.");
@@ -58,6 +61,12 @@ function setAppTheme() {
         appContainer.classList.remove("dark-mode");
       }
     }
+  });
+
+  //Can be moved into themeOptions event listener with event delegation
+  closeThemeOptionsButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    themeOptions.classList.remove("theme-options--active");
   });
 }
 
