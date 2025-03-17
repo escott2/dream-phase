@@ -34,7 +34,7 @@ function createDeleteButton(isEditListActive) {
 
 function setAppTheme() {
   const themeButton = document.querySelector(".js-theme-button");
-  const themeOptions = document.querySelector(".js-theme-options");
+  const themeOptions = document.querySelector(".js-theme-options-container");
   const appContainer = document.querySelector(".js-application-container");
   const closeThemeOptionsButton = document.querySelector(
     ".js-theme-options-close-button"
