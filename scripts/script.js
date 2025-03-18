@@ -7,9 +7,9 @@ import {
 } from "./utils.js";
 import { createCloudSVG } from "./cloudSVG.js";
 
-function buildPhaseUrl(phaseId) {
+function buildPhaseUrl(phaseId, preferredTheme) {
   const baseUrl = getBaseUrl();
-  const url = `${baseUrl}pages/phase.html?id=${phaseId}`;
+  const url = `${baseUrl}pages/phase.html?id=${phaseId}theme=${preferredTheme}`;
   return url;
 }
 
@@ -42,16 +42,16 @@ function removeItem(itemId, dreamPhaseData, phasesList, isEditListActive) {
   //TODO - load data to keep it synced
   dreamPhaseData.length = 0;
   newDreamPhaseData.forEach((item) => dreamPhaseData.push(item));
-  renderPhases(newDreamPhaseData, phasesList, isEditListActive);
+  renderPhases(newDreamPhaseData, phasesList, isEditListActive, preferredTheme);
 }
 
-function renderPhase(phaseData, phasesList, isEditListActive) {
+function renderPhase(phaseData, phasesList, isEditListActive, preferredTheme) {
   const newItem = document.createElement("li");
   const id = phaseData.id;
   newItem.dataset.id = id;
   const cloudSVG = createCloudSVG("#A9B9D9", "#D9C5D2");
   const newAnchor = document.createElement("a");
-  const url = buildPhaseUrl(id);
+  const url = buildPhaseUrl(id, preferredTheme);
   newAnchor.setAttribute("href", url);
   const newAnchorText = document.createTextNode(phaseData.name);
   newAnchor.append(cloudSVG, newAnchorText);
@@ -61,10 +61,15 @@ function renderPhase(phaseData, phasesList, isEditListActive) {
   phasesList.appendChild(newItem);
 }
 
-function renderPhases(dreamPhaseData, phasesList, isEditListActive) {
+function renderPhases(
+  dreamPhaseData,
+  phasesList,
+  isEditListActive,
+  preferredTheme
+) {
   phasesList.replaceChildren();
   dreamPhaseData.forEach((item) => {
-    renderPhase(item, phasesList, isEditListActive);
+    renderPhase(item, phasesList, isEditListActive, preferredTheme);
   });
 }
 
@@ -78,10 +83,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let isEditModeActive = false;
   let isEditListActive = false;
+  let preferredTheme = "light";
 
   const dreamPhaseData = loadData("dreamPhaseData");
   if (dreamPhaseData) {
-    renderPhases(dreamPhaseData, phasesList, isEditListActive);
+    renderPhases(dreamPhaseData, phasesList, isEditListActive, preferredTheme);
 
     addPhaseForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -94,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       dreamPhaseData.push(phaseData);
       saveData(dreamPhaseData, "dreamPhaseData");
-      renderPhase(phaseData, phasesList, isEditListActive);
+      renderPhase(phaseData, phasesList, isEditListActive, preferredTheme);
       phaseNameInput.value = "";
     });
 
