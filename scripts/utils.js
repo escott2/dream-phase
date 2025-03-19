@@ -1,3 +1,6 @@
+let isEditModeActive = false;
+let isEditListActive = false;
+
 function loadData(keyName) {
   const data = localStorage.getItem(keyName);
   if (data) {
@@ -17,7 +20,7 @@ function getBaseUrl(repositoryName = "dream-phase") {
   return "/";
 }
 
-function createDeleteButton(isEditListActive) {
+function createDeleteButton() {
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Remove";
   deleteButton.classList.add(
@@ -32,83 +35,46 @@ function createDeleteButton(isEditListActive) {
   return deleteButton;
 }
 
-function applyTheme(selectedTheme, appContainer) {
-  if (selectedTheme === "darkMode") {
-    appContainer.classList.add("dark-mode");
-  } else {
-    appContainer.classList.remove("dark-mode");
+function renderDeleteButtons(isEditListActive, deleteButtons) {
+  if (deleteButtons) {
+    deleteButtons.forEach((button) => {
+      if (isEditListActive) {
+        button.classList.remove("hidden");
+      } else {
+        button.classList.add("hidden");
+      }
+    });
   }
 }
 
-function setAppTheme() {
-  const themeButton = document.querySelector(".js-theme-button");
-  const themeOptions = document.querySelector(".js-theme-options-container");
-  const appContainer = document.querySelector(".js-application-container");
-  const closeThemeOptionsButton = document.querySelector(
-    ".js-theme-options-close-button"
-  );
+function handleEditListButtonClick(e) {
+  e.currentTarget.classList.toggle("close");
 
-  function getPreferredColorScheme() {
-    if (window.matchMedia) {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        return "darkMode";
-      } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-        return "lightMode";
-      }
-    }
-    return "lightMode";
+  isEditListActive = isEditListActive ? false : true;
+
+  const deleteButtons = document.querySelectorAll(".js-delete-button");
+  renderDeleteButtons(isEditListActive, deleteButtons);
+}
+
+function handleEditModeButtonClick(editListButton) {
+  const editListActions = document.querySelector(".js-edit-list-actions");
+
+  editListActions.classList.toggle("hidden");
+  editListActions.classList.toggle("animate");
+
+  if (isEditModeActive) {
+    isEditModeActive = false;
+    isEditListActive = false;
+    editListButton.classList.remove("close");
+  } else {
+    isEditModeActive = true;
   }
 
-  let selectedTheme = localStorage.getItem("dreamPhaseTheme");
+  const ariaHiddenString = (!isEditModeActive).toString();
+  editListActions.setAttribute("aria-hidden", ariaHiddenString);
 
-  if (!selectedTheme) {
-    selectedTheme = getPreferredColorScheme();
-  }
-
-  function getTheme() {
-    return selectedTheme;
-  }
-
-  function setRadioDefault() {
-    const lightModeRadio = document.querySelector("#lightMode");
-    const darkModeRadio = document.querySelector("#darkMode");
-    if (selectedTheme === "lightMode") {
-      lightModeRadio.checked = true;
-    } else {
-      darkModeRadio.checked = true;
-    }
-  }
-
-  setRadioDefault();
-  applyTheme(selectedTheme, appContainer);
-
-  if (!themeButton || !themeOptions || !appContainer) {
-    console.error("Theme elements not found in the DOM.");
-    return;
-  }
-
-  themeButton.addEventListener("click", () => {
-    themeOptions.classList.toggle("theme-options--active");
-  });
-
-  themeOptions.addEventListener("click", (e) => {
-    if (e.target.name === "theme") {
-      selectedTheme = document.querySelector(
-        'input[name="theme"]:checked'
-      ).value;
-
-      applyTheme(selectedTheme, appContainer);
-      localStorage.setItem("dreamPhaseTheme", selectedTheme);
-    }
-  });
-
-  //Can be moved into themeOptions event listener with event delegation
-  closeThemeOptionsButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    themeOptions.classList.remove("theme-options--active");
-  });
-
-  return getTheme;
+  const deleteButtons = document.querySelectorAll(".js-delete-button");
+  renderDeleteButtons(isEditListActive, deleteButtons);
 }
 
 export {
@@ -116,6 +82,6 @@ export {
   getBaseUrl,
   loadData,
   saveData,
-  setAppTheme,
-  applyTheme,
+  handleEditListButtonClick,
+  handleEditModeButtonClick,
 };

@@ -3,66 +3,74 @@ import {
   saveData,
   getBaseUrl,
   createDeleteButton,
-  setAppTheme,
+  handleEditModeButtonClick,
+  handleEditListButtonClick,
 } from "./utils.js";
+import { initializeTheme } from "./theme.js";
 import { createCloudSVG } from "./cloudSVG.js";
 
-function buildPhaseUrl(phaseId, getTheme) {
-  const theme = getTheme();
+function buildPhaseUrl(phaseId) {
   const baseUrl = getBaseUrl();
-  const url = `${baseUrl}pages/phase.html?id=${phaseId}&theme=${theme}`;
+  const url = `${baseUrl}pages/phase.html?id=${phaseId}`;
   return url;
 }
 
-function renderDeleteButtons(isEditListActive, deleteButtons) {
-  if (deleteButtons) {
-    deleteButtons.forEach((button) => {
-      if (isEditListActive) {
-        button.classList.remove("hidden");
-      } else {
-        button.classList.add("hidden");
-      }
+function createDreamPhaseManager(phasesList) {
+  let dreamPhaseData = loadData("dreamPhaseData");
+
+  function removeItem(itemId) {
+    dreamPhaseData = dreamPhaseData.filter(
+      (phase) => phase.id.toString() !== itemId
+    );
+    saveData(dreamPhaseData, "dreamPhaseData");
+    renderPhases();
+  }
+
+  function renderPhase(phaseData) {
+    const newItem = document.createElement("li");
+    const id = phaseData.id;
+    newItem.dataset.id = id;
+    const cloudSVG = createCloudSVG("#A9B9D9", "#D9C5D2");
+    const newAnchor = document.createElement("a");
+    const url = buildPhaseUrl(id);
+    newAnchor.setAttribute("href", url);
+    const newAnchorText = document.createTextNode(phaseData.name);
+    newAnchor.append(cloudSVG, newAnchorText);
+    const deleteButton = createDeleteButton();
+    newItem.appendChild(newAnchor);
+    newItem.appendChild(deleteButton);
+    phasesList.appendChild(newItem);
+  }
+
+  function renderPhases() {
+    if (!dreamPhaseData) {
+      console.log("error: No data found");
+      return;
+    }
+
+    phasesList.replaceChildren();
+    dreamPhaseData.forEach((item) => {
+      renderPhase(item);
     });
   }
-}
 
-function removeItem(
-  itemId,
-  dreamPhaseData,
-  phasesList,
-  isEditListActive,
-  getTheme
-) {
-  const newDreamPhaseData = dreamPhaseData.filter((phase) => {
-    return phase.id.toString() !== itemId;
-  });
-  saveData(newDreamPhaseData, "dreamPhaseData");
-  dreamPhaseData.length = 0;
-  newDreamPhaseData.forEach((item) => dreamPhaseData.push(item));
-  renderPhases(newDreamPhaseData, phasesList, isEditListActive, getTheme);
-}
+  function addPhase(phaseName) {
+    const phaseId = Date.now();
+    const phaseData = {
+      id: phaseId,
+      name: phaseName,
+      dreams: [],
+    };
+    dreamPhaseData.push(phaseData);
+    saveData(dreamPhaseData, "dreamPhaseData");
+    renderPhase(phaseData);
+  }
 
-function renderPhase(phaseData, phasesList, isEditListActive, getTheme) {
-  const newItem = document.createElement("li");
-  const id = phaseData.id;
-  newItem.dataset.id = id;
-  const cloudSVG = createCloudSVG("#A9B9D9", "#D9C5D2");
-  const newAnchor = document.createElement("a");
-  const url = buildPhaseUrl(id, getTheme);
-  newAnchor.setAttribute("href", url);
-  const newAnchorText = document.createTextNode(phaseData.name);
-  newAnchor.append(cloudSVG, newAnchorText);
-  const deleteButton = createDeleteButton(isEditListActive);
-  newItem.appendChild(newAnchor);
-  newItem.appendChild(deleteButton);
-  phasesList.appendChild(newItem);
-}
-
-function renderPhases(dreamPhaseData, phasesList, isEditListActive, getTheme) {
-  phasesList.replaceChildren();
-  dreamPhaseData.forEach((item) => {
-    renderPhase(item, phasesList, isEditListActive, getTheme);
-  });
+  return {
+    renderPhases,
+    removeItem,
+    addPhase,
+  };
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -70,75 +78,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const phaseNameInput = document.querySelector(".js-phase-name-input");
   const phasesList = document.querySelector(".js-phases-list");
   const editListButton = document.querySelector(".js-edit-list-button");
-  const editListActions = document.querySelector(".js-edit-list-actions");
   const editModeButton = document.querySelector(".js-edit-mode-button");
 
-  const getTheme = setAppTheme();
+  initializeTheme();
 
-  let isEditModeActive = false;
-  let isEditListActive = false;
+  const phaseManager = createDreamPhaseManager(phasesList);
+  phaseManager.renderPhases();
 
-  const dreamPhaseData = loadData("dreamPhaseData");
-  if (dreamPhaseData) {
-    renderPhases(dreamPhaseData, phasesList, isEditListActive, getTheme);
+  addPhaseForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    phaseManager.addPhase(phaseNameInput.value);
+    phaseNameInput.value = "";
+  });
 
-    addPhaseForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const phaseName = phaseNameInput.value;
-      const phaseId = Date.now();
-      const phaseData = {
-        id: phaseId,
-        name: phaseName,
-        dreams: [],
-      };
-      dreamPhaseData.push(phaseData);
-      saveData(dreamPhaseData, "dreamPhaseData");
-      renderPhase(phaseData, phasesList, isEditListActive, getTheme);
-      phaseNameInput.value = "";
-    });
+  phasesList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("js-delete-button")) {
+      const itemId = e.target.parentNode.dataset.id;
+      phaseManager.removeItem(itemId);
+    }
+  });
 
-    phasesList.addEventListener("click", (e) => {
-      if (e.target.classList.contains("js-delete-button")) {
-        const itemId = e.target.parentNode.dataset.id;
-        removeItem(
-          itemId,
-          dreamPhaseData,
-          phasesList,
-          isEditListActive,
-          getTheme
-        );
-      }
-    });
+  editModeButton.addEventListener("click", () =>
+    handleEditModeButtonClick(editListButton)
+  );
 
-    // TODO - Refactor to use reusable utility functions for callback functions. Repeated code.
-    editModeButton.addEventListener("click", () => {
-      editListActions.classList.toggle("hidden");
-      editListActions.classList.toggle("animate");
-
-      if (isEditModeActive) {
-        isEditModeActive = false;
-        isEditListActive = false;
-        editListButton.classList.remove("close");
-      } else {
-        isEditModeActive = true;
-      }
-
-      const ariaHiddenString = (!isEditModeActive).toString();
-      editListActions.setAttribute("aria-hidden", ariaHiddenString);
-
-      const deleteButtons = document.querySelectorAll(".js-delete-button");
-      renderDeleteButtons(isEditListActive, deleteButtons);
-    });
-
-    editListButton.addEventListener("click", (e) => {
-      e.currentTarget.classList.toggle("close");
-
-      isEditListActive = isEditListActive ? false : true;
-
-      const deleteButtons = document.querySelectorAll(".js-delete-button");
-      renderDeleteButtons(isEditListActive, deleteButtons);
-    });
-  } else {
-    console.log("error: No data found");
-  }
+  editListButton.addEventListener("click", handleEditListButtonClick);
 });

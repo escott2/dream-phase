@@ -1,11 +1,16 @@
-import { loadData, saveData, createDeleteButton, applyTheme } from "./utils.js";
+import {
+  loadData,
+  saveData,
+  createDeleteButton,
+  handleEditListButtonClick,
+  handleEditModeButtonClick,
+} from "./utils.js";
 import { createCloudSVG } from "./cloudSVG.js";
 
 const addDreamForm = document.querySelector("#js-add-dream-form");
 const dreamPhaseList = document.querySelector(".js-dream-phase-list");
 const editModeButton = document.querySelector(".js-edit-mode-button");
 const editListButton = document.querySelector(".js-edit-list-button");
-const editListActions = document.querySelector(".js-edit-list-actions");
 const phaseNameHeading = document.querySelector(".js-phase-name");
 const breadcrumbs = document.querySelector(".js-breadcrumbs");
 const pageTitleContainer = document.querySelector(".js-page-title-container");
@@ -13,12 +18,6 @@ const appContainer = document.querySelector(".js-application-container");
 
 const params = new URLSearchParams(window.location.search);
 let phaseId = params.get("id");
-let theme = params.get("theme");
-
-applyTheme(theme, appContainer);
-
-let isEditModeActive = false;
-let isEditListActive = false;
 
 let dreamPhaseData;
 let phaseData;
@@ -68,7 +67,7 @@ function renderItem(item) {
   checkboxLabel.classList.add("dream-name");
   checkboxLabel.textContent = item.value;
   checkboxLabel.setAttribute("for", `${item.id}`);
-  const deleteButton = createDeleteButton(isEditListActive);
+  const deleteButton = createDeleteButton();
   newItem.append(checkboxInput, checkboxLabel, deleteButton);
   dreamPhaseList.appendChild(newItem);
 }
@@ -78,20 +77,6 @@ function renderList(dreams) {
   dreams.forEach((item) => {
     renderItem(item);
   });
-}
-
-function renderDeleteButtons(isEditListActive) {
-  const deleteButtons = document.querySelectorAll(".js-delete-button");
-
-  if (deleteButtons) {
-    deleteButtons.forEach((button) => {
-      if (isEditListActive) {
-        button.classList.remove("hidden");
-      } else {
-        button.classList.add("hidden");
-      }
-    });
-  }
 }
 
 function removeItem(itemId) {
@@ -155,32 +140,11 @@ if (phaseId) {
     }
   });
 
-  // TODO - Refactor to use reusable utility functions for callback functions. Repeated code.
-  editModeButton.addEventListener("click", () => {
-    editListActions.classList.toggle("hidden");
-    editListActions.classList.toggle("animate");
+  editModeButton.addEventListener("click", () =>
+    handleEditModeButtonClick(editListButton)
+  );
 
-    if (isEditModeActive) {
-      isEditModeActive = false;
-      isEditListActive = false;
-      editListButton.classList.remove("close");
-    } else {
-      isEditModeActive = true;
-    }
-
-    const ariaHiddenString = (!isEditModeActive).toString();
-    editListActions.setAttribute("aria-hidden", ariaHiddenString);
-
-    renderDeleteButtons(isEditListActive);
-  });
-
-  editListButton.addEventListener("click", (e) => {
-    e.currentTarget.classList.toggle("close");
-
-    isEditListActive = isEditListActive ? false : true;
-
-    renderDeleteButtons(isEditListActive);
-  });
+  editListButton.addEventListener("click", handleEditListButtonClick);
 } else {
   console.log("error: No phase id passed");
 }
