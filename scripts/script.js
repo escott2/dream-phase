@@ -7,9 +7,10 @@ import {
 } from "./utils.js";
 import { createCloudSVG } from "./cloudSVG.js";
 
-function buildPhaseUrl(phaseId, preferredTheme) {
+function buildPhaseUrl(phaseId, getTheme) {
+  const theme = getTheme();
   const baseUrl = getBaseUrl();
-  const url = `${baseUrl}pages/phase.html?id=${phaseId}theme=${preferredTheme}`;
+  const url = `${baseUrl}pages/phase.html?id=${phaseId}&theme=${theme}`;
   return url;
 }
 
@@ -25,33 +26,29 @@ function renderDeleteButtons(isEditListActive, deleteButtons) {
   }
 }
 
-// TODO -- Add Archive button and screen to manage
-// function archiveItem(itemId, dreamPhaseData, phasesList, isEditListActive) {
-//   const archivedPhase = dreamPhaseData.filter((phase) => {
-//     return phase.id.toString() === itemId;
-//   });
-//   saveData(archivedPhase, "dreamPhaseArchivedData");
-//   removeItem(itemId, dreamPhaseData, phasesList, isEditListActive)
-// }
-
-function removeItem(itemId, dreamPhaseData, phasesList, isEditListActive) {
+function removeItem(
+  itemId,
+  dreamPhaseData,
+  phasesList,
+  isEditListActive,
+  getTheme
+) {
   const newDreamPhaseData = dreamPhaseData.filter((phase) => {
     return phase.id.toString() !== itemId;
   });
   saveData(newDreamPhaseData, "dreamPhaseData");
-  //TODO - load data to keep it synced
   dreamPhaseData.length = 0;
   newDreamPhaseData.forEach((item) => dreamPhaseData.push(item));
-  renderPhases(newDreamPhaseData, phasesList, isEditListActive, preferredTheme);
+  renderPhases(newDreamPhaseData, phasesList, isEditListActive, getTheme);
 }
 
-function renderPhase(phaseData, phasesList, isEditListActive, preferredTheme) {
+function renderPhase(phaseData, phasesList, isEditListActive, getTheme) {
   const newItem = document.createElement("li");
   const id = phaseData.id;
   newItem.dataset.id = id;
   const cloudSVG = createCloudSVG("#A9B9D9", "#D9C5D2");
   const newAnchor = document.createElement("a");
-  const url = buildPhaseUrl(id, preferredTheme);
+  const url = buildPhaseUrl(id, getTheme);
   newAnchor.setAttribute("href", url);
   const newAnchorText = document.createTextNode(phaseData.name);
   newAnchor.append(cloudSVG, newAnchorText);
@@ -61,15 +58,10 @@ function renderPhase(phaseData, phasesList, isEditListActive, preferredTheme) {
   phasesList.appendChild(newItem);
 }
 
-function renderPhases(
-  dreamPhaseData,
-  phasesList,
-  isEditListActive,
-  preferredTheme
-) {
+function renderPhases(dreamPhaseData, phasesList, isEditListActive, getTheme) {
   phasesList.replaceChildren();
   dreamPhaseData.forEach((item) => {
-    renderPhase(item, phasesList, isEditListActive, preferredTheme);
+    renderPhase(item, phasesList, isEditListActive, getTheme);
   });
 }
 
@@ -81,13 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const editListActions = document.querySelector(".js-edit-list-actions");
   const editModeButton = document.querySelector(".js-edit-mode-button");
 
+  const getTheme = setAppTheme();
+
   let isEditModeActive = false;
   let isEditListActive = false;
-  let preferredTheme = "light";
 
   const dreamPhaseData = loadData("dreamPhaseData");
   if (dreamPhaseData) {
-    renderPhases(dreamPhaseData, phasesList, isEditListActive, preferredTheme);
+    renderPhases(dreamPhaseData, phasesList, isEditListActive, getTheme);
 
     addPhaseForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -100,14 +93,20 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       dreamPhaseData.push(phaseData);
       saveData(dreamPhaseData, "dreamPhaseData");
-      renderPhase(phaseData, phasesList, isEditListActive, preferredTheme);
+      renderPhase(phaseData, phasesList, isEditListActive, getTheme);
       phaseNameInput.value = "";
     });
 
     phasesList.addEventListener("click", (e) => {
       if (e.target.classList.contains("js-delete-button")) {
         const itemId = e.target.parentNode.dataset.id;
-        removeItem(itemId, dreamPhaseData, phasesList, isEditListActive);
+        removeItem(
+          itemId,
+          dreamPhaseData,
+          phasesList,
+          isEditListActive,
+          getTheme
+        );
       }
     });
 
@@ -142,6 +141,4 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     console.log("error: No data found");
   }
-
-  setAppTheme();
 });

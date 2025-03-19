@@ -32,6 +32,14 @@ function createDeleteButton(isEditListActive) {
   return deleteButton;
 }
 
+function applyTheme(selectedTheme, appContainer) {
+  if (selectedTheme === "darkMode") {
+    appContainer.classList.add("dark-mode");
+  } else {
+    appContainer.classList.remove("dark-mode");
+  }
+}
+
 function setAppTheme() {
   const themeButton = document.querySelector(".js-theme-button");
   const themeOptions = document.querySelector(".js-theme-options-container");
@@ -39,6 +47,40 @@ function setAppTheme() {
   const closeThemeOptionsButton = document.querySelector(
     ".js-theme-options-close-button"
   );
+
+  function getPreferredColorScheme() {
+    if (window.matchMedia) {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "darkMode";
+      } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+        return "lightMode";
+      }
+    }
+    return "lightMode";
+  }
+
+  let selectedTheme = localStorage.getItem("dreamPhaseTheme");
+
+  if (!selectedTheme) {
+    selectedTheme = getPreferredColorScheme();
+  }
+
+  function getTheme() {
+    return selectedTheme;
+  }
+
+  function setRadioDefault() {
+    const lightModeRadio = document.querySelector("#lightMode");
+    const darkModeRadio = document.querySelector("#darkMode");
+    if (selectedTheme === "lightMode") {
+      lightModeRadio.checked = true;
+    } else {
+      darkModeRadio.checked = true;
+    }
+  }
+
+  setRadioDefault();
+  applyTheme(selectedTheme, appContainer);
 
   if (!themeButton || !themeOptions || !appContainer) {
     console.error("Theme elements not found in the DOM.");
@@ -51,15 +93,12 @@ function setAppTheme() {
 
   themeOptions.addEventListener("click", (e) => {
     if (e.target.name === "theme") {
-      const selectedTheme = document.querySelector(
+      selectedTheme = document.querySelector(
         'input[name="theme"]:checked'
       ).value;
 
-      if (selectedTheme === "darkMode") {
-        appContainer.classList.add("dark-mode");
-      } else {
-        appContainer.classList.remove("dark-mode");
-      }
+      applyTheme(selectedTheme, appContainer);
+      localStorage.setItem("dreamPhaseTheme", selectedTheme);
     }
   });
 
@@ -68,6 +107,15 @@ function setAppTheme() {
     e.preventDefault();
     themeOptions.classList.remove("theme-options--active");
   });
+
+  return getTheme;
 }
 
-export { createDeleteButton, getBaseUrl, loadData, saveData, setAppTheme };
+export {
+  createDeleteButton,
+  getBaseUrl,
+  loadData,
+  saveData,
+  setAppTheme,
+  applyTheme,
+};

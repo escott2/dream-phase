@@ -1,4 +1,4 @@
-import { loadData, saveData, createDeleteButton } from "./utils.js";
+import { loadData, saveData, createDeleteButton, applyTheme } from "./utils.js";
 import { createCloudSVG } from "./cloudSVG.js";
 
 const addDreamForm = document.querySelector("#js-add-dream-form");
@@ -9,9 +9,13 @@ const editListActions = document.querySelector(".js-edit-list-actions");
 const phaseNameHeading = document.querySelector(".js-phase-name");
 const breadcrumbs = document.querySelector(".js-breadcrumbs");
 const pageTitleContainer = document.querySelector(".js-page-title-container");
+const appContainer = document.querySelector(".js-application-container");
 
 const params = new URLSearchParams(window.location.search);
 let phaseId = params.get("id");
+let theme = params.get("theme");
+
+applyTheme(theme, appContainer);
 
 let isEditModeActive = false;
 let isEditListActive = false;
