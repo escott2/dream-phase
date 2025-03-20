@@ -36,7 +36,7 @@ function createDreamPhaseManager(phasesList) {
     newAnchor.setAttribute("href", url);
     const newAnchorText = document.createTextNode(phaseData.name);
     const cloudImg = document.createElement("img");
-    cloudImg.setAttribute("src", "../assets/blue-cloud.svg");
+    cloudImg.setAttribute("src", "assets/blue-cloud.svg");
     cloudImg.setAttribute("alt", "cloud image");
     cloudImg.classList.add("phases-list-cloud");
     newAnchor.append(cloudImg, newAnchorText);
