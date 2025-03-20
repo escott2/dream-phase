@@ -53,7 +53,7 @@ h6 {
 /* END CSS RESET */
 
 :root {
-  --black: #000;
+  --black: #000000;
   --white: #fff;
   --blue-lavendar-light: #c4cfe5;
   --blue-lavendar: #a9b9d9;
@@ -65,6 +65,7 @@ h6 {
   --pink-lavendar: #d9c5d2;
   --grey-lavendar: #eff2f6;
   --grey-graphite: #1e1e1e;
+  --grey-stone: #323232;
 
   --text-color: var(--black);
   --app-container-background-color: var(--white);
@@ -89,6 +90,12 @@ h6 {
   --font-family-accent: "Alata", sans-serif;
   --content-padding: 20px;
   --modal-backdrop-color: rgba(255, 255, 255, 0.8);
+  --link-text-color: var(--blue-dark);
+  --icon-color--no-background: var(--text-color);
+  --list-background-color-odd: var(--grey-lavendar);
+  --list-background-color-even: var(--white);
+  --list-border-bottom-color-even: var(--list-background-color-even);
+  --list-border-bottom-color-odd: var(--list-background-color-odd);
 }
 
 body {
@@ -105,29 +112,34 @@ body {
 
 .dark-mode {
   --text-color: var(--white);
-  --header-background-color: var(--black);
+  --header-background-color: var(--grey-graphite);
   --header-border-color: var(--grey-graphite);
-  --app-container-background-color: var(--black);
-  --data-list-background-color: var(--black);
+  --app-container-background-color: var(--grey-graphite);
+  --data-list-background-color: var(--grey-graphite);
   --data-list-border-color: var(--grey-graphite);
-  --button-primary-background-color: var(--black);
-  --button-primary-hover-background-color: var(--black);
+  --button-primary-background-color: var(--grey-graphite);
+  --button-primary-hover-background-color: var(--grey-graphite);
   --button-primary-hover-text-color: var(--button-secondary-text-color);
   --button-primary-text-color: var(--blue-lavendar-dark);
-  --button-secondary-background-color: var(--black);
-  --button-secondary-hover-background-color: var(--black);
+  --button-secondary-background-color: var(--grey-graphite);
+  --button-secondary-hover-background-color: var(--grey-graphite);
   --button-secondary-hover-text-color: var(--button-primary-text-color);
   --button-secondary-text-color: var(--pink-lavendar);
   --primary-section-border-color: var(--grey-graphite);
-  --input-text-background-color: var(--black);
+  --input-text-background-color: var(--grey-graphite);
   --input-text-border-color: var(--pink-lavendar);
   --edit-list-actions-background-color: var(--grey-graphite);
   --modal-backdrop-color: rgba(0, 0, 0, 0.8);
+  --link-text-color: var(--blue-lavendar-dark);
+  --list-background-color-odd: var(--grey-graphite);
+  --list-background-color-even: var(--grey-graphite);
+  --list-border-bottom-color-even: var(--grey-stone);
+  --list-border-bottom-color-odd: var(--grey-stone);
 }
 
 a {
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--link-text-color);
 }
 
 main {
@@ -179,6 +191,7 @@ header {
   font-size: 18px;
   font-weight: 700;
   font-family: var(--font-family-accent);
+  color: var(--text-color);
 }
 
 .header-actions {
@@ -279,10 +292,16 @@ header {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 24px;
   font-family: var(--font-family-accent);
   line-height: 1;
   color: var(--text-color);
+}
+
+@media screen and (min-width: 576px) {
+  h1 {
+    font-size: 32px;
+  }
 }
 
 input {
@@ -314,7 +333,10 @@ input[type="text"] {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: var(--white);
+  background-color: var(--list-background-color-even);
+  color: var(--text-color);
+  border: 1px solid var(--list-background-color-even);
+  border-bottom-color: var(--list-border-bottom-color-even);
 }
 
 .dream-name {
@@ -322,7 +344,9 @@ input[type="text"] {
 }
 
 .dream-item:nth-child(odd) {
-  background-color: var(--grey-lavendar);
+  background-color: var(--list-background-color-odd);
+  border-color: var(--list-background-color-odd);
+  border-bottom-color: var(--list-border-bottom-color-odd);
 }
 
 .cloud-img {
@@ -480,11 +504,11 @@ input[type="text"] {
   font-family: var(--font-family-accent);
   font-weight: 700;
   word-break: break-all;
+  color: var(--text-color);
 }
 
 .nav-link {
   cursor: pointer;
-  font-weight: 700;
 }
 
 .nav-link:hover {
@@ -501,10 +525,11 @@ input[type="text"] {
   display: flex;
   align-items: center;
   white-space: nowrap;
+  color: var(--text-color);
 }
 
 .breadcrumbs a {
-  color: var(--blue-dark);
+  color: var(--link-text-color);
 }
 
 .breadcrumbs__caret {
@@ -512,6 +537,7 @@ input[type="text"] {
   height: auto;
   margin: 5px;
   transform: rotate(90deg);
+  fill: var(--icon-color--no-background);
 }
 
 .breadcrumbs a:hover {
@@ -553,3 +579,19 @@ input[type="checkbox"]:checked::before {
   visibility: visible;
 }
 /* END CHECKBOX STYLING */
+
+/* .loading-screen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 5;
+  visibility: hidden;
+  background-color: grey;
+}
+
+.loading-screen--active {
+  visibility: visible;
+} */

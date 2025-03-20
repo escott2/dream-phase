@@ -1,6 +1,5 @@
 const themeButton = document.querySelector(".js-theme-button");
 const themeOptions = document.querySelector(".js-theme-options-container");
-const appContainer = document.querySelector(".js-application-container");
 const closeThemeOptionsButton = document.querySelector(
   ".js-theme-options-close-button"
 );
@@ -22,7 +21,7 @@ function setupListeners() {
         'input[name="theme"]:checked'
       ).value;
 
-      applyThemeStyles(selectedTheme, appContainer);
+      applyThemeStyles(selectedTheme);
       localStorage.setItem("dreamPhaseTheme", selectedTheme);
     }
   });
@@ -54,22 +53,17 @@ function setDefaultThemeRadio(selectedTheme) {
   }
 }
 
-function applyThemeStyles(selectedTheme, appContainer) {
+function applyThemeStyles(selectedTheme) {
   if (selectedTheme === "darkMode") {
-    appContainer.classList.add("dark-mode");
+    document.documentElement.classList.add("dark-mode");
   } else {
-    appContainer.classList.remove("dark-mode");
+    document.documentElement.classList.remove("dark-mode");
   }
 }
 
 function initializeTheme() {
   setDefaultThemeRadio(selectedTheme);
-  applyThemeStyles(selectedTheme, appContainer);
   setupListeners();
 }
 
-function getSelectedTheme() {
-  return selectedTheme;
-}
-
-export { initializeTheme, getSelectedTheme };
+export { initializeTheme };

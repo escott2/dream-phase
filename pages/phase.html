@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dream Phase</title>
     <link rel="icon" type="image/x-icon" href="../assets/blue-pink-cloud.svg" />
+    <script>
+      function getPreferredColorScheme() {
+        if (window.matchMedia) {
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "darkMode";
+          } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+            return "lightMode";
+          }
+        }
+        return "lightMode";
+      }
+
+      let selectedTheme = localStorage.getItem("dreamPhaseTheme");
+
+      if (!selectedTheme) {
+        selectedTheme = getPreferredColorScheme();
+      }
+
+      if (selectedTheme === "darkMode") {
+        document.documentElement.classList.add("dark-mode");
+      } else {
+        document.documentElement.classList.remove("dark-mode");
+      }
+    </script>
     <script type="module" src="../scripts/phase.js"></script>
     <link rel="stylesheet" href="../styles/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,12 +94,10 @@
           <section class="primary-section">
             <ul class="actions">
               <li class="js-breadcrumbs breadcrumbs">
-                <a href="../index.html">Dream Phases</a>
-                <img
-                  src="../assets/icons/caret.svg"
-                  alt="arrow pointing right"
-                  class="breadcrumbs__caret"
-                />
+                <a href="../index.html">Phases</a>
+                <svg class="breadcrumbs__caret" width="12" height="8" viewBox="0 0 12 8" fill="black" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z"/>
+                  </svg>
               </li>
               <li>
                 <button
@@ -84,7 +106,6 @@
                   Toggle Edit Mode
                 </button>
               </li>
-              <!-- <li><button class="button--secondary">Delete</button></li> -->
             </ul>
             <div class="js-page-title-container page-title-container">
               <h1 class="js-phase-name phase-name"></h1>

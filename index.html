@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width" />
     <title>Dream Phase</title>
     <link rel="icon" type="image/x-icon" href="assets/blue-pink-cloud.svg" />
+    <script>
+      function getPreferredColorScheme() {
+        if (window.matchMedia) {
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "darkMode";
+          } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+            return "lightMode";
+          }
+        }
+        return "lightMode";
+      }
+
+      let selectedTheme = localStorage.getItem("dreamPhaseTheme");
+
+      if (!selectedTheme) {
+        selectedTheme = getPreferredColorScheme();
+      }
+
+      if (selectedTheme === "darkMode") {
+        document.documentElement.classList.add("dark-mode");
+      } else {
+        document.documentElement.classList.remove("dark-mode");
+      }
+    </script>
     <script type="module" src="scripts/script.js"></script>
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -78,7 +102,7 @@
               </li>
             </ul>
             <div class="js-page-title-container page-title-container">
-              <h1>Dream Phases</h1>
+              <h1>Phases</h1>
             </div>
             <form id="js-add-phase-form" class="form">
               <label for="phase-name">Phase Name</label>
