@@ -93,7 +93,7 @@ function createDreamPhasePageManager(
       if (phaseData) {
         dreams = phaseData.dreams;
         renderList();
-        renderCloudSVG();
+        // renderCloudSVG();
         renderPhaseNameHeading(phaseData.name);
         renderPhaseNameBreadcrumbs(phaseData.name);
       } else {

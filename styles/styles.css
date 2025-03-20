@@ -66,14 +66,15 @@ h6 {
   --grey-lavendar: #eff2f6;
   --grey-graphite: #1e1e1e;
   --grey-stone: #323232;
+  --grey-black: #161616;
 
   --text-color: var(--black);
-  --app-container-background-color: var(--white);
-  --header-background-color: var(--pink-blush-light);
+  --primary-background-color: var(--pink-blush-light);
+  --app-container-background-color: var(--primary-background-color);
+  --header-background-color: var(--pink-blush);
   --header-border-color: var(--pink-lavendar);
-  --data-list-background-color: var(--white);
+  --data-list-background-color: var(--primary-background-color);
   --data-list-border-color: var(--grey-lavendar);
-  --primary-section-border-color: var(--blue-lavendar);
   --button-primary-background-color: var(--blue-lavendar-light);
   --button-primary-hover-background-color: var(--pink-blush);
   --button-primary-text-color: var(--black);
@@ -83,8 +84,9 @@ h6 {
   --button-secondary-text-color: var(--black);
   --button-secondary-hover-text-color: var(--button-secondary-text-color);
   --input-text-background-color: var(--white);
-  --input-text-border-color: var(--blue-lavendar-dark);
-  --edit-list-actions-background-color: var(--grey-lavendar);
+  --input-text-border-color: var(--blue-lavendar);
+  --input-background-color: var(--white);
+  --checkbox-color: var(--blue-dark);
   --button-font-size: 16px;
   --font-family-accent: "Lobster", sans-serif;
   --font-family-accent: "Alata", sans-serif;
@@ -92,10 +94,8 @@ h6 {
   --modal-backdrop-color: rgba(255, 255, 255, 0.8);
   --link-text-color: var(--blue-dark);
   --icon-color--no-background: var(--text-color);
-  --list-background-color-odd: var(--grey-lavendar);
-  --list-background-color-even: var(--white);
-  --list-border-bottom-color-even: var(--list-background-color-even);
-  --list-border-bottom-color-odd: var(--list-background-color-odd);
+  --list-border-bottom-color: var(--pink-lavendar);
+  --theme-options-form-border-color: var(--pink-lavendar);
 }
 
 body {
@@ -112,11 +112,9 @@ body {
 
 .dark-mode {
   --text-color: var(--white);
-  --header-background-color: var(--grey-graphite);
+  --primary-background-color: var(--grey-graphite);
   --header-border-color: var(--grey-graphite);
-  --app-container-background-color: var(--grey-graphite);
-  --data-list-background-color: var(--grey-graphite);
-  --data-list-border-color: var(--grey-graphite);
+  --header-background-color: var(--grey-black);
   --button-primary-background-color: var(--grey-graphite);
   --button-primary-hover-background-color: var(--grey-graphite);
   --button-primary-hover-text-color: var(--button-secondary-text-color);
@@ -125,16 +123,14 @@ body {
   --button-secondary-hover-background-color: var(--grey-graphite);
   --button-secondary-hover-text-color: var(--button-primary-text-color);
   --button-secondary-text-color: var(--pink-lavendar);
-  --primary-section-border-color: var(--grey-graphite);
-  --input-text-background-color: var(--grey-graphite);
-  --input-text-border-color: var(--pink-lavendar);
-  --edit-list-actions-background-color: var(--grey-graphite);
+  --input-text-background-color: var(--grey-black);
+  --input-text-border-color: var(--grey-stone);
+  --input-background-color: var(--grey-black);
+  --checkbox-color: var(--pink-lavendar);
   --modal-backdrop-color: rgba(0, 0, 0, 0.8);
-  --link-text-color: var(--blue-lavendar-dark);
-  --list-background-color-odd: var(--grey-graphite);
-  --list-background-color-even: var(--grey-graphite);
-  --list-border-bottom-color-even: var(--grey-stone);
-  --list-border-bottom-color-odd: var(--grey-stone);
+  --link-text-color: var(--blue-lavendar-light);
+  --list-border-bottom-color: var(--grey-stone);
+  --theme-options-form-border-color: var(--black);
 }
 
 a {
@@ -142,24 +138,20 @@ a {
   color: var(--link-text-color);
 }
 
-main {
-  padding: var(--content-padding);
-}
-
 .main-layout-container {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+  padding-top: 40px;
 }
 @media screen and (min-width: 768px) {
   .main-layout-container {
-    padding: 20px;
+    padding: 40px 20px;
   }
 }
 
 .primary-section {
   padding: 20px;
-  border: 1px solid var(--primary-section-border-color);
   border-radius: 10px;
 }
 @media screen and (min-width: 768px) {
@@ -172,7 +164,7 @@ main {
 
 header {
   background-color: var(--header-background-color);
-  border-bottom: 2px solid var(--header-border-color);
+  border-bottom: 1px solid var(--header-border-color);
   padding: var(--content-padding);
   padding-top: 10px;
   padding-bottom: 10px;
@@ -225,7 +217,7 @@ header {
   height: auto;
   padding: 25px;
   background-color: var(--app-container-background-color);
-  border: 1px solid var(--pink-lavendar);
+  border: 1px solid var(--theme-options-form-border-color);
   border-radius: 10px;
 }
 
@@ -244,10 +236,18 @@ header {
   color: var(--text-color);
 }
 
+.theme-options-fieldset legend {
+  font-weight: 700;
+  padding: 10px;
+}
+
 .theme-options-close-button {
   display: block;
   margin-left: auto;
-  margin-bottom: 10px;
+}
+
+.theme-option {
+  padding-left: 10px;
 }
 
 /* START HEADER STYLES */
@@ -308,17 +308,18 @@ input {
   border: 1px solid var(--input-text-border-color);
   border-radius: 5px;
   padding: 5px;
+  background-color: var(--input-background-color);
 }
 
 input[type="text"] {
   background-color: var(--input-text-background-color);
   color: var(--text-color);
+  padding: 5px 10px;
 }
 
 .data-list {
   list-style: none;
   padding: 0;
-  border: 1px solid var(--data-list-border-color);
   min-height: 400px;
   border-radius: 10px;
   overflow: hidden;
@@ -333,20 +334,12 @@ input[type="text"] {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: var(--list-background-color-even);
   color: var(--text-color);
-  border: 1px solid var(--list-background-color-even);
-  border-bottom-color: var(--list-border-bottom-color-even);
+  border-bottom: 1px solid var(--list-border-bottom-color);
 }
 
 .dream-name {
   padding: 5px 10px;
-}
-
-.dream-item:nth-child(odd) {
-  background-color: var(--list-background-color-odd);
-  border-color: var(--list-background-color-odd);
-  border-bottom-color: var(--list-border-bottom-color-odd);
 }
 
 .cloud-img {
@@ -447,7 +440,6 @@ input[type="text"] {
 }
 
 .edit-list-actions {
-  background-color: var(--edit-list-actions-background-color);
   position: relative;
   top: 15px;
   border-top-right-radius: 10px;
@@ -503,7 +495,7 @@ input[type="text"] {
   align-items: center;
   font-family: var(--font-family-accent);
   font-weight: 700;
-  word-break: break-all;
+  word-break: break-word;
   color: var(--text-color);
 }
 
@@ -515,7 +507,8 @@ input[type="text"] {
   text-decoration: underline;
 }
 
-.cloud-svg {
+.cloud-svg,
+.phases-list-cloud {
   width: 50px;
   height: auto;
   margin: 0 10px;
@@ -560,9 +553,9 @@ input[type="checkbox"] {
   position: relative;
   width: 16px;
   height: 16px;
-  border: 1px solid gray;
+  border: 1px solid var(--input-text-border-color);
   vertical-align: -2px;
-  color: var(--blue-dark);
+  color: var(--checkbox-color);
   margin-left: 5px;
 }
 
@@ -579,19 +572,3 @@ input[type="checkbox"]:checked::before {
   visibility: visible;
 }
 /* END CHECKBOX STYLING */
-
-/* .loading-screen {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: white;
-  z-index: 5;
-  visibility: hidden;
-  background-color: grey;
-}
-
-.loading-screen--active {
-  visibility: visible;
-} */

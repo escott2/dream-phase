@@ -10,7 +10,9 @@
         if (window.matchMedia) {
           if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
             return "darkMode";
-          } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          } else if (
+            window.matchMedia("(prefers-color-scheme: light)").matches
+          ) {
             return "lightMode";
           }
         }
@@ -43,11 +45,7 @@
       <header>
         <div class="header-layout-container">
           <a href="#">
-            <img
-              src="assets/blue-pink-cloud.svg"
-              alt="cloud"
-              class="cloud-img"
-            />
+            <img src="assets/blue-cloud.svg" alt="cloud" class="cloud-img" />
             <span class="title">Dream Phase</span></a
           >
           <ul class="header-actions">
@@ -59,32 +57,36 @@
             <li>
               <button class="js-theme-button button--primary">Theme</button>
               <div class="theme-options-container js-theme-options-container">
-              <form class="theme-options-form">
-                <button class="js-theme-options-close-button theme-options-close-button button--primary">Close</button>
-                <fieldset class="theme-options-fieldset">
-                  <legend>Preferred theme:</legend>
-                  <div>
-                    <input
-                      type="radio"
-                      id="lightMode"
-                      name="theme"
-                      value="lightMode"
-                      checked
-                    />
-                    <label for="lightMode">Light Mode</label>
-                  </div>
-                  <div>
-                    <input
-                      type="radio"
-                      id="darkMode"
-                      name="theme"
-                      value="darkMode"
-                    />
-                    <label for="darkMode">Dark Mode</label>
-                  </div>
-                </fieldset>
-              </form>
-              <div>
+                <form class="theme-options-form">
+                  <button
+                    class="js-theme-options-close-button theme-options-close-button button--primary"
+                  >
+                    Close
+                  </button>
+                  <fieldset class="theme-options-fieldset">
+                    <legend>Please select your preferred theme</legend>
+                    <div class="theme-option">
+                      <input
+                        type="radio"
+                        id="lightMode"
+                        name="theme"
+                        value="lightMode"
+                        checked
+                      />
+                      <label for="lightMode">Light Mode</label>
+                    </div>
+                    <div class="theme-option">
+                      <input
+                        type="radio"
+                        id="darkMode"
+                        name="theme"
+                        value="darkMode"
+                      />
+                      <label for="darkMode">Dark Mode</label>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
             </li>
           </ul>
         </div>
