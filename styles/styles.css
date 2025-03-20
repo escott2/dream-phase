@@ -511,7 +511,7 @@ input[type="text"] {
 .phases-list-cloud {
   width: 50px;
   height: auto;
-  margin: 0 10px;
+  margin-right: 10px;
 }
 
 .breadcrumbs {
@@ -557,15 +557,19 @@ input[type="checkbox"] {
   vertical-align: -2px;
   color: var(--checkbox-color);
   margin-left: 5px;
+  flex-shrink: 0;
 }
 
 input[type="checkbox"]::before {
   content: "✔";
   position: absolute;
   font-size: 18px;
-  right: -4px;
-  top: -8px;
+  top: 40%;
+  left: 70%;
+  transform: translateX(-50%) translateY(-50%);
+  font-family: Arial, Helvetica, sans-serif;
   visibility: hidden;
+  color: var(--checkbox-color);
 }
 
 input[type="checkbox"]:checked::before {
