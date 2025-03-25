@@ -20,7 +20,7 @@ function getBaseUrl(repositoryName = "dream-phase") {
   return "/";
 }
 
-function createDeleteButton() {
+function createDeleteButton(itemLabel) {
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Remove";
   deleteButton.classList.add(
@@ -29,6 +29,7 @@ function createDeleteButton() {
     "button--delete",
     "hidden"
   );
+  deleteButton.setAttribute("aria-label", `Delete ${itemLabel}`);
   if (isEditListActive) {
     deleteButton.classList.remove("hidden");
   }
@@ -72,6 +73,7 @@ function handleEditModeButtonClick(editListButton) {
 
   const ariaHiddenString = (!isEditModeActive).toString();
   editListActions.setAttribute("aria-hidden", ariaHiddenString);
+  editListActions.setAttribute("aria-expanded", isEditModeActive.toString());
 
   const deleteButtons = document.querySelectorAll(".js-delete-button");
   renderDeleteButtons(isEditListActive, deleteButtons);

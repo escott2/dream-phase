@@ -7,7 +7,6 @@ import {
   handleEditListButtonClick,
 } from "./utils.js";
 import { initializeTheme } from "./theme.js";
-import { createCloudSVG } from "./cloudSVG.js";
 
 function buildPhaseUrl(phaseId) {
   const baseUrl = getBaseUrl();
@@ -30,17 +29,23 @@ function createDreamPhaseManager(phasesList) {
     const newItem = document.createElement("li");
     const id = phaseData.id;
     newItem.dataset.id = id;
-    // const cloudSVG = createCloudSVG("#A9B9D9", "#D9C5D2");
+
     const newAnchor = document.createElement("a");
     const url = buildPhaseUrl(id);
     newAnchor.setAttribute("href", url);
+
     const newAnchorText = document.createTextNode(phaseData.name);
+
     const cloudImg = document.createElement("img");
     cloudImg.setAttribute("src", "assets/blue-cloud.svg");
-    cloudImg.setAttribute("alt", "cloud image");
+    cloudImg.setAttribute("alt", "");
+    cloudImg.setAttribute("aria-hidden", "true");
     cloudImg.classList.add("phases-list-cloud");
+
     newAnchor.append(cloudImg, newAnchorText);
-    const deleteButton = createDeleteButton();
+
+    const deleteButton = createDeleteButton(phaseData.name);
+
     newItem.appendChild(newAnchor);
     newItem.appendChild(deleteButton);
     phasesList.appendChild(newItem);

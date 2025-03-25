@@ -6,7 +6,6 @@ import {
   handleEditModeButtonClick,
 } from "./utils.js";
 import { initializeTheme } from "./theme.js";
-import { createCloudSVG } from "./cloudSVG.js";
 
 function createDreamPhasePageManager(
   dreamPhaseList,
@@ -47,25 +46,24 @@ function createDreamPhasePageManager(
     breadcrumbs.appendChild(newText);
   }
 
-  function renderCloudSVG() {
-    const cloudSVG = createCloudSVG();
-    pageTitleContainer.appendChild(cloudSVG);
-  }
-
   function renderItem(item) {
     const newItem = document.createElement("li");
     newItem.dataset.id = item.id;
     newItem.classList.add("dream-item");
+
     const checkboxInput = document.createElement("input");
     checkboxInput.setAttribute("type", "checkbox");
     checkboxInput.setAttribute("id", `${item.id}`);
     checkboxInput.checked = item.isChecked;
     checkboxInput.classList.add("js-dream-checkbox");
+
     const checkboxLabel = document.createElement("label");
     checkboxLabel.classList.add("dream-name");
     checkboxLabel.textContent = item.value;
     checkboxLabel.setAttribute("for", `${item.id}`);
-    const deleteButton = createDeleteButton();
+
+    const deleteButton = createDeleteButton(item.value);
+
     newItem.append(checkboxInput, checkboxLabel, deleteButton);
     dreamPhaseList.appendChild(newItem);
   }
@@ -93,7 +91,6 @@ function createDreamPhasePageManager(
       if (phaseData) {
         dreams = phaseData.dreams;
         renderList();
-        // renderCloudSVG();
         renderPhaseNameHeading(phaseData.name);
         renderPhaseNameBreadcrumbs(phaseData.name);
       } else {

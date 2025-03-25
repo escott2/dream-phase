@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dream Phase</title>
     <link rel="icon" type="image/x-icon" href="../assets/blue-cloud.svg" />
@@ -44,58 +44,78 @@
     <div class="js-application-container application-container">
       <header>
         <div class="header-layout-container">
-          <a href="../index.html">
-            <img src="../assets/blue-cloud.svg" alt="cloud" class="cloud-img" />
+          <a href="../index.html" aria-label="Dream Phase Home">
+            <img
+              src="../assets/blue-cloud.svg"
+              alt=""
+              class="cloud-img"
+              aria-hidden="true"
+            />
             <span class="title">Dream Phase</span>
           </a>
-          <ul class="header-actions">
-            <li>
-              <nav>
+          <nav aria-label="Main Navigation">
+            <ul class="header-actions">
+              <li>
                 <a href="../index.html" class="nav-link">Home</a>
-              </nav>
-            </li>
-            <li>
-              <button class="js-theme-button button--primary">Theme</button>
-              <div class="theme-options-container js-theme-options-container">
-                <form class="theme-options-form">
-                  <button
-                    class="js-theme-options-close-button theme-options-close-button button--primary"
-                  >
-                    Close
-                  </button>
-                  <fieldset class="theme-options-fieldset">
-                    <legend>Please select your preferred theme</legend>
-                    <div class="theme-option">
-                      <input
-                        type="radio"
-                        id="lightMode"
-                        name="theme"
-                        value="lightMode"
-                        checked
-                      />
-                      <label for="lightMode">Light Mode</label>
-                    </div>
-                    <div class="theme-option">
-                      <input
-                        type="radio"
-                        id="darkMode"
-                        name="theme"
-                        value="darkMode"
-                      />
-                      <label for="darkMode">Dark Mode</label>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
-            </li>
-          </ul>
+              </li>
+              <li>
+                <button
+                  class="js-theme-button button--primary"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-controls="theme-options"
+                >
+                  Theme
+                </button>
+                <div
+                  id="theme-options"
+                  class="theme-options-container js-theme-options-container"
+                  aria-hidden="true"
+                  role="dialog"
+                  aria-labelledby="theme-options-legend"
+                >
+                  <form class="theme-options-form">
+                    <button
+                      class="js-theme-options-close-button theme-options-close-button button--primary"
+                    >
+                      Close
+                    </button>
+                    <fieldset class="theme-options-fieldset">
+                      <legend id="theme-options-legend">
+                        Please select your preferred theme
+                      </legend>
+                      <div class="theme-option">
+                        <input
+                          type="radio"
+                          id="lightMode"
+                          name="theme"
+                          value="lightMode"
+                          checked
+                        />
+                        <label for="lightMode">Light Mode</label>
+                      </div>
+                      <div class="theme-option">
+                        <input
+                          type="radio"
+                          id="darkMode"
+                          name="theme"
+                          value="darkMode"
+                        />
+                        <label for="darkMode">Dark Mode</label>
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
-      <main>
+      <main id="main-content">
         <div class="main-layout-container">
           <section class="primary-section">
             <ul class="actions">
-              <li class="js-breadcrumbs breadcrumbs">
+              <li class="js-breadcrumbs breadcrumbs" aria-label="Breadcrumbs">
                 <a href="../index.html">Phases</a>
                 <svg
                   class="breadcrumbs__caret"
@@ -104,6 +124,7 @@
                   viewBox="0 0 12 8"
                   fill="black"
                   xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
                 >
                   <path
                     d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z"
@@ -137,7 +158,10 @@
                 class="button--secondary button--edit js-edit-list-button"
               ></button>
             </div>
-            <ul class="js-dream-phase-list dream-phase-list data-list"></ul>
+            <ul
+              class="js-dream-phase-list dream-phase-list data-list"
+              aria-label="Dreams List"
+            ></ul>
           </section>
         </div>
       </main>

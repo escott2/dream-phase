@@ -13,6 +13,8 @@ if (!selectedTheme) {
 function setupListeners() {
   themeButton.addEventListener("click", () => {
     themeOptions.classList.toggle("theme-options--active");
+    themeOptions.setAttribute("aria-hidden", "false");
+    themeButton.setAttribute("aria-expanded", "true");
   });
 
   themeOptions.addEventListener("click", (e) => {
