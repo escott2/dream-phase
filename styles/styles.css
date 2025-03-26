@@ -184,6 +184,10 @@ header {
   justify-content: space-between;
 }
 
+.header-title-container {
+  flex-shrink: 0;
+}
+
 .title {
   font-size: 18px;
   font-weight: 700;
@@ -193,7 +197,9 @@ header {
 
 .header-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   list-style: none;
   position: relative;
 }
