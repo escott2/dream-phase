@@ -138,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
     itemIdToRemove = null;
     confirmRemovalModal.classList.add("hidden");
     if (triggeringElement) {
-      console.log("triggeringElement", triggeringElement);
       triggeringElement.focus();
       triggeringElement = null;
     }

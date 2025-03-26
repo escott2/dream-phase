@@ -59,7 +59,7 @@
                 <a href="../index.html" class="nav-link">Home</a>
               </li>
               <li>
-                <a href="about.html" class="nav-link">About</a>
+                <a href="#" class="nav-link">About</a>
               </li>
               <li>
                 <button
@@ -118,56 +118,35 @@
       <main id="main-content">
         <div class="main-layout-container">
           <section class="primary-section">
-            <ul class="actions">
-              <li class="js-breadcrumbs breadcrumbs" aria-label="Breadcrumbs">
-                <a href="../index.html">Phases</a>
-                <svg
-                  class="breadcrumbs__caret"
-                  width="12"
-                  height="8"
-                  viewBox="0 0 12 8"
-                  fill="black"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z"
-                  />
-                </svg>
-              </li>
-              <li>
-                <button
-                  class="button--secondary js-edit-mode-button edit-mode-button"
-                >
-                  Toggle Edit Mode
-                </button>
-              </li>
-            </ul>
-            <div class="js-page-title-container page-title-container">
-              <h1 class="js-phase-name phase-name"></h1>
+            <div class="page-title-container">
+              <h1 class="phase-name">About</h1>
             </div>
-            <form id="js-add-dream-form" class="form">
-              <label for="dream-name">Dream Name</label>
-              <input
-                id="dream-name"
-                type="text"
-                class="js-to-do-input"
-                name="dream-name"
-                required
-              />
-              <button class="js-submit-button button--primary">
-                Add Dream
-              </button>
-            </form>
-            <div class="edit-list-actions js-edit-list-actions hidden">
-              <button
-                class="button--secondary button--edit js-edit-list-button"
-              ></button>
+            <div class="about-container">
+              <h2>What is Dream Phase?</h2>
+              <p>
+                Dream Phase is a tool that helps you organize your goals and
+                dreams for each phase of life. It allows you to create a list of
+                goals and dreams for each phase, and track your progress as you
+                work towards achieving them.
+              </p>
             </div>
-            <ul
-              class="js-dream-phase-list dream-phase-list data-list"
-              aria-label="Dreams List"
-            ></ul>
+            <div class="about-container">
+              <h2 class="get-started-heading">How do I get started?</h2>
+              <ul class="about-list">
+                <li>
+                  To begin using Dream Phase, create a new phase by entering a
+                  name and clicking the ‘Add Phase’ button.
+                </li>
+                <li>
+                  Navigate to the phase page to add goals and dreams by entering
+                  them and selecting ‘Add Dream.’
+                </li>
+                <li>
+                  Mark goals and dreams as completed to track your progress
+                  through each phase of life.
+                </li>
+              </ul>
+            </div>
           </section>
         </div>
       </main>
