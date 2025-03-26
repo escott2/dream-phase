@@ -12,7 +12,7 @@ if (!selectedTheme) {
 
 function setupListeners() {
   themeButton.addEventListener("click", () => {
-    themeOptions.classList.toggle("theme-options--active");
+    themeOptions.classList.remove("hidden");
     themeOptions.setAttribute("aria-hidden", "false");
     themeButton.setAttribute("aria-expanded", "true");
   });
@@ -30,7 +30,7 @@ function setupListeners() {
 
   closeThemeOptionsButton.addEventListener("click", (e) => {
     e.preventDefault();
-    themeOptions.classList.remove("theme-options--active");
+    themeOptions.classList.add("hidden");
   });
 }
 

@@ -88,6 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const phasesList = document.querySelector(".js-phases-list");
   const editListButton = document.querySelector(".js-edit-list-button");
   const editModeButton = document.querySelector(".js-edit-mode-button");
+  const confirmRemovalModal = document.querySelector(
+    ".js-confirm-removal-modal"
+  );
+  const confirmRemovalButton = document.querySelector(".js-confirm-yes-button");
+  const denyRemovalButton = document.querySelector(".js-confirm-no-button");
+
+  let itemIdToRemove = null;
+  let triggeringElement = null;
 
   initializeTheme();
 
@@ -102,9 +110,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   phasesList.addEventListener("click", (e) => {
     if (e.target.classList.contains("js-delete-button")) {
-      const itemId = e.target.parentNode.dataset.id;
-      phaseManager.removeItem(itemId);
+      itemIdToRemove = e.target.parentNode.dataset.id;
+      triggeringElement = e.currentTarget;
+      confirmRemovalModal.removeAttribute("inert", "");
+      confirmRemovalModal.classList.remove("hidden");
     }
+  });
+
+  confirmRemovalButton.addEventListener("click", () => {
+    if (itemIdToRemove) {
+      phaseManager.removeItem(itemIdToRemove);
+    }
+    closeConfirmRemovalModal();
+  });
+
+  denyRemovalButton.addEventListener("click", () => {
+    closeConfirmRemovalModal();
   });
 
   editModeButton.addEventListener("click", () =>
@@ -112,4 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   editListButton.addEventListener("click", handleEditListButtonClick);
+
+  function closeConfirmRemovalModal() {
+    itemIdToRemove = null;
+    confirmRemovalModal.classList.add("hidden");
+    if (triggeringElement) {
+      console.log("triggeringElement", triggeringElement);
+      triggeringElement.focus();
+      triggeringElement = null;
+    }
+    confirmRemovalModal.setAttribute("inert", "");
+  }
 });

@@ -69,17 +69,18 @@
                 </button>
                 <div
                   id="theme-options"
-                  class="theme-options-container js-theme-options-container"
+                  class="modal-overlay js-theme-options-container hidden"
                   aria-hidden="true"
                   role="dialog"
                   aria-labelledby="theme-options-legend"
                 >
-                  <form class="theme-options-form">
+                  <form class="modal-content">
                     <button
-                      class="js-theme-options-close-button theme-options-close-button button--primary"
+                      class="js-theme-options-close-button modal-close-button button--primary"
                     >
                       Close
                     </button>
+                    <h2>Theme Options</h2>
                     <fieldset class="theme-options-fieldset">
                       <legend id="theme-options-legend">
                         Please select your preferred theme
@@ -149,6 +150,19 @@
           </section>
         </div>
       </main>
+    </div>
+    <div
+      class="modal-overlay js-confirm-removal-modal hidden"
+      inert
+      role="dialog"
+      aria-labelledby="confirm-removal-legend"
+    >
+      <div class="modal-content confirm-removal-modal-content">
+        <h2 id="confirm-removal-title">Confirm Removal</h2>
+        <p>Are you sure you want to remove this item?</p>
+        <button class="js-confirm-yes-button button--primary">Yes</button>
+        <button class="js-confirm-no-button button--secondary">No</button>
+      </div>
     </div>
   </body>
 </html>
